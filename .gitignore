@@ -1,0 +1,7 @@
+*.pyc
+*~
+.*.swp
+.idea
+__pycache__
+postgres
+sqlite.db*
