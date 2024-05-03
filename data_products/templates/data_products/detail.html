@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en-US">
+  <body>
+    <h1>{{ product.tissue.tissuetype }}</h1>
+    <ul>
+    {% for dataset in product.datasets.all %}
+        <li>{{ dataset.hbmid }}</li>
+    {% endfor %}
+    </ul>
+    {% if product.download %}
+    {% endif %}
+    <a href="{{product.download.url}}"/>Download Data Product</a>
+    {% if product.umap_plot %}
+    <img src="{{ product.umap_plot.url }}" alt="umap plot">
+    {% endif %}
+  </body>
+</html>
