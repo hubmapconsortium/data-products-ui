@@ -1,6 +1,33 @@
 <!doctype html>
 <html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: dark)">
+<style>
+.topnav {
+  overflow: hidden;
+  background-color: #454a63;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+</style>
+  </head>
+    <div class="header_placeholder"></div>
+
+<div class="topnav">
+  <a id="logo" href="https://hubmapconsortium.org" title="HuBMAP Consortium" data-height="50" data-padding="15"><img class="logo-main scale-with-grid" src="https://hubmapconsortium.org/wp-content/uploads/2023/03/hubmap-with-name-_medium@0.5x.png" height="50"></a>
+
+</div>
   <body>
+  
     <h1>{{ product.tissue.tissuetype }}</h1>
     <ul>
     {% for dataset in product.datasets.all %}
