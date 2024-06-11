@@ -8,3 +8,4 @@ from .models import DataProduct, Dataset, Tissue
 admin.site.register(DataProduct)
 admin.site.register(Dataset)
 admin.site.register(Tissue)
+

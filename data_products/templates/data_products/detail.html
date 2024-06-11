@@ -5,6 +5,12 @@
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: dark)">
 <style>
+
+h1, h2 {text-align: center;}
+p, div {text-align: center;}
+li, body {text-align: center;}
+ul {text-align: center; list-style-position: inside;}
+
 .topnav {
   overflow: hidden;
   background-color: #454a63;
@@ -18,6 +24,13 @@
   text-decoration: none;
   font-size: 17px;
 }
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
 </style>
   </head>
     <div class="header_placeholder"></div>
@@ -28,17 +41,21 @@
 </div>
   <body>
   
-    <h1>{{ product.tissue.tissuetype }}</h1>
-    <ul>
+    <h1 style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue,sans-serif">{{ product.tissue.tissuetype }}</h1>
+    <h2 style="font-family:'Helvetica Neue'">{{"Datasets in this Data Product:"}}</h2> 
+    <ul style="font-family:'Helvetica Neue'">
     {% for dataset in product.datasets.all %}
         <li>{{ dataset.hbmid }}</li>
     {% endfor %}
     </ul>
-    {% if product.download %}
-    {% endif %}
-    <a href="{{product.download.url}}"/>Download Data Product</a>
     {% if product.umap_plot %}
-    <img src="{{ product.umap_plot.url }}" alt="umap plot">
+    <img src="{{ product.umap_plot.url }}" alt="umap plot", class="center">
+    {% endif %}<p>
+    {% if product.download %}
+    <a style="font-family:'Helvetica Neue'" href="{{product.download.url}}"/>Download Data Product</a>
+    {% endif %}<p>
+    {% if product.shinyApp %}
+    <a style="font-family:'Helvetica Neue'" href="{{product.shinyApp}}"/>Shiny App</a>
     {% endif %}
   </body>
 </html>
