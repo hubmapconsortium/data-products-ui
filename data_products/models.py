@@ -55,7 +55,7 @@ class DataProduct(models.Model):
     creation_time = models.DateTimeField(auto_now_add=True)
     tissue = models.ForeignKey(Tissue, on_delete=models.CASCADE)
     datasets = models.ManyToManyField(Dataset)
-    download = models.FileField(null=True, blank=True, upload_to="uploads/")
+    download = models.URLField(null=True, blank=True)
     umap_plot = models.ImageField(null=True, blank=True, upload_to="images/")
 
     shinyApp = models.URLField(null=True, blank=True)
