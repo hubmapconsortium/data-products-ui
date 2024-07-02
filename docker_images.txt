@@ -1,0 +1,5 @@
+# requires v0.5 or newer of 'multi-docker-build' package
+hubmap/data-products-ui-base  docker/base/Dockerfile
+hubmap/data-products-ui-dev   docker/dev/Dockerfile
+# needs base directory build to copy code
+# hubmap/data-products-ui-prod	docker/prod/Dockerfile

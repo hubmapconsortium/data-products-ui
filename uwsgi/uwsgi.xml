@@ -1,0 +1,14 @@
+<uwsgi>
+	<max-requests>500</max-requests>
+	<master/>
+	<enable-threads/>
+	<threads>4</threads>
+	<workers>3</workers>
+	<socket>:5000</socket>
+	<chdir>/opt/cross-modality-query</chdir>
+	<plugin>python3</plugin>
+	<module>hubmap_query.wsgi</module>
+	<env>LC_ALL=en_US.UTF-8</env>
+	<env>LANG=en_US.UTF-8</env>
+	<env>PYTHONIOENCODING=utf-8</env>
+</uwsgi>

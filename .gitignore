@@ -5,3 +5,5 @@
 __pycache__
 postgres
 sqlite.db*
+.DS_Store
+media/*
