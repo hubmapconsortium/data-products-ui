@@ -50,13 +50,16 @@ class Assay(models.Model):
 
 class DataProduct(models.Model):
 
-    dataProductId = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    data_product_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     
     creation_time = models.DateTimeField(auto_now_add=True)
     tissue = models.ForeignKey(Tissue, on_delete=models.CASCADE)
     datasets = models.ManyToManyField(Dataset)
     download = models.URLField(null=True, blank=True)
     umap_plot = models.ImageField(null=True, blank=True, upload_to="images/")
+    raw_total_cell_count = models.IntegerField(null=True, blank=True)
+    processed_total_cell_count = models.IntegerField(null=True, blank=True)
+    # cell type count
 
     shinyApp = models.URLField(null=True, blank=True)
 
