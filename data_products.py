@@ -59,7 +59,7 @@ def register_data_products(metadata_list, umap_list):
 
 def read_metadata(metadata_file):
     with open(metadata_file, 'r') as json_file:
-        metadata = json.load(metadata_file)
+        metadata = json.load(json_file)
     return metadata\
 
 
