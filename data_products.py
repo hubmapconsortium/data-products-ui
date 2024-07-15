@@ -43,12 +43,16 @@ def register_data_product(metadata_file, umap_file):
     data_product = DataProduct.objects.get_or_create(
         data_product_id = data_product_uuid,
         tissue = register_tissue(tissue_type),
-        datasets = dataset_list,
         download = directory_url,
         umap_plot = umap_file,
         raw_total_cell_count = raw_cell_count,
         processed_total_cell_count = processed_cell_count
     )[0]
+
+    for dataset in dataset_list:
+        dataset.data_product = data_product
+        dataset.save()
+    
     data_product.save()
 
 
@@ -96,8 +100,8 @@ def main(directory):
     metadata_files = find_metadatas(directory)
     umap_files = find_umaps(directory)
     register_data_products(metadata_files, umap_files)
-    for file in metadata_files:
-        delete_json_file(directory, file)
+    # for file in metadata_files:
+    #     delete_json_file(directory, file)
 
 
 if __name__ == "__main__":
