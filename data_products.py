@@ -11,6 +11,15 @@ from data_products.models import DataProduct, Tissue, Assay, Dataset
 from argparse import ArgumentParser
 from pathlib import Path
 
+organ_types_yaml = Path("organ_types.yaml")
+
+
+def get_tissue(tissue_yaml, tissue):
+    with open(tissue_yaml, 'r') as f:
+        data = yaml.load(f, Loader=yaml.SafeLoader)
+    tissue_name = data.get(tissue)['description']
+    return tissue_name
+
 
 def register_datasets(uuids, hbmids):
     datasets = []
@@ -33,7 +42,7 @@ def register_tissue(tissue_type):
 def register_data_product(metadata_file, umap_file):
     metadata = read_metadata(metadata_file)
     data_product_uuid = metadata["Data Product UUID"]
-    tissue_type = metadata["Tissue"]
+    tissue_type = get_tissue(organ_types_yaml, metadata["Tissue"])
     dataset_uuids = metadata["Dataset UUIDs"]
     dataset_hbmids = metadata["Dataset HBMIDs"]
     dataset_list = register_datasets(dataset_uuids, dataset_hbmids)
