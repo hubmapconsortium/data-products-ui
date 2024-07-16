@@ -83,19 +83,13 @@ def find_metadatas(directory):
 
 
 def find_umaps(metadatas, directory):
-    uuids = []
     umap_pngs = []
     for file_path in metadatas:
         filename = os.path.basename(file_path)
         file = os.path.splitext(filename)
-        uuid = file[0]
-        uuids.append(Path(f"{uuid}.png"))
-    for i in uuids:
-        png = directory / i
-        
-        umap_pngs.append(png)
-    return umap_pngs
-        
+        png = f"{file[0]}.png"
+        umap_pngs.append(os.path.join(directory, png))
+    return umap_pngs   
 
 
 def find_files(directory, pattern):
