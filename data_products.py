@@ -73,7 +73,7 @@ def register_data_products(metadata_list, umap_list):
 def read_metadata(metadata_file):
     with open(metadata_file, 'r') as json_file:
         metadata = json.load(json_file)
-    return metadata\
+    return metadata
 
 
 def find_metadatas(directory):
@@ -89,9 +89,10 @@ def find_umaps(metadatas, directory):
         filename = os.path.basename(file_path)
         file = os.path.splitext(filename)
         uuid = file[0]
-        uuids.append(f"{uuid}.png")
+        uuids.append(Path(f"{uuid}.png"))
     for i in uuids:
         png = directory / i
+        
         umap_pngs.append(png)
     return umap_pngs
         
