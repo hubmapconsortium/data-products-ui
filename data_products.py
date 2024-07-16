@@ -117,7 +117,7 @@ def delete_json_file(directory, json_file):
 def main(directory):
     metadata_files = find_metadatas(directory)
     find_umaps(metadata_files, directory)
-    umap_files = find_umaps(directory)
+    umap_files = find_umaps(metadata_files, directory)
     register_data_products(metadata_files, umap_files)
     # for file in metadata_files:
     #     delete_json_file(directory, file)
