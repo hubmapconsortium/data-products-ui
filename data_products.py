@@ -82,10 +82,19 @@ def find_metadatas(directory):
     return metadatas
 
 
-def find_umaps(directory):
-    pattern = re.compile(r'.*\.png$')
-    pngs = find_files(directory, pattern)
-    return pngs
+def find_umaps(metadatas, directory):
+    uuids = []
+    umap_pngs = []
+    for file_path in metadatas:
+        filename = os.path.basename(file_path)
+        file = os.path.splitext(filename)
+        uuid = file[0]
+        uuids.append(f"{uuid}.png")
+    for i in uuids:
+        png = directory / i
+        umap_pngs.append(png)
+    return umap_pngs
+        
 
 
 def find_files(directory, pattern):
@@ -107,6 +116,7 @@ def delete_json_file(directory, json_file):
 
 def main(directory):
     metadata_files = find_metadatas(directory)
+    find_umaps(metadata_files, directory)
     umap_files = find_umaps(directory)
     register_data_products(metadata_files, umap_files)
     # for file in metadata_files:
