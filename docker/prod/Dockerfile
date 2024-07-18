@@ -20,4 +20,4 @@ VOLUME /opt/secret
 
 EXPOSE 5000
 
-ENTRYPOINT ["uwsgi", "--xml", "/opt/uwsgi/uwsgi.xml"]
+ENTRYPOINT ["uwsgi",  "--plugin", "python3", "-H", "/opt/venv", "--xml", "/opt/uwsgi/uwsgi.xml"]
