@@ -1,0 +1,12 @@
+[Unit]
+Description=data-products-ui web application via docker-compose
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/docker-compose -f /opt/data-products-ui/docker/prod/docker-compose.yml up
+ExecStop=/usr/bin/docker-compose -f /opt/data-products-ui/docker/prod/docker-compose.yml down
+
+[Install]
+WantedBy=multi-user.target
