@@ -38,7 +38,7 @@ body {
     {% if latest_data_product_list %}
     <ul>
     {% for DataProduct in latest_data_product_list %}
-        <li><a href="/data_products/{{ DataProduct.dataProductId }}/">{{ DataProduct.tissue }}</a>, <a href="/data_products/{{ DataProduct.dataProductId }}/">{{ DataProduct.creation_time }}</li>
+        <li><a href="/data_products/{{ DataProduct.data_product_id }}/">{{ DataProduct.tissue }}</a>, <a href="/data_products/{{ DataProduct.data_product_id }}/">{{ DataProduct.creation_time }}</li>
     {% endfor %}
     </ul>
 {% else %}
