@@ -19,4 +19,5 @@ RUN python3 -m venv /opt/venv \
  && . /opt/venv/bin/activate \
  && pip install -U pip setuptools wheel \
  && pip install -r /opt/requirements.txt \
- && rm -rf /root/.cache/pip
+ && rm -rf /root/.cache/pip \
+ && echo '. /opt/venv/bin/activate' >> /etc/bash.bashrc
