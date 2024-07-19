@@ -1,3 +1,4 @@
 Django~=4.2
+ipython
 Pillow
 psycopg2-binary>=2.8.6
