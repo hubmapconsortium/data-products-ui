@@ -66,7 +66,8 @@ class DataProduct(models.Model):
     processed_total_cell_count = models.IntegerField(null=True, blank=True)
     # cell type count
 
-    shiny_app = models.URLField(null=True, blank=True)
+    #link to this data product's shiny app
+    shinyApp = models.URLField(null=True, blank=True)
 
     def __repr__(self):
         return self.data_product_id
