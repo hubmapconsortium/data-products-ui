@@ -58,6 +58,9 @@ class DataProduct(models.Model):
     download = models.FileField(null=True, blank=True, upload_to="uploads/")
     umap_plot = models.ImageField(null=True, blank=True, upload_to="images/")
 
+    number_cells = models.IntegerField(default=0)
+    number_cell_types = models.IntegerField(default=0)
+
     shinyApp = models.URLField(null=True, blank=True)
 
     def __repr__(self):
