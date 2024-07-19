@@ -24,23 +24,42 @@ body {
   text-decoration: none;
   font-size: 17px;
 }
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
 </style>
   </head>
   <div class="header_placeholder"></div>
 
 <div class="topnav">
-  <a id="logo" href="https://hubmapconsortium.org" title="HuBMAP Consortium" data-height="50" data-padding="15"><img class="logo-main scale-with-grid" src="https://hubmapconsortium.org/wp-content/uploads/2023/03/hubmap-with-name-_medium@0.5x.png" height="50">
+  <a id="logo" href="https://hubmapconsortium.org" title="HuBMAP Consortium" data-height="50" data-padding="15"><img class="logo-main scale-with-grid" src="https://hubmapconsortium.org/wp-content/uploads/2023/03/hubmap-with-name-_medium@0.5x.png" height="50"></a>
 
 </div>
 
 
    <body>
     {% if latest_data_product_list %}
-    <ul>
+    <table class="center">
+    <th>Tissue Type</th><th>Creation Time</th>
     {% for DataProduct in latest_data_product_list %}
-        <li><a href="/data_products/{{ DataProduct.data_product_id }}/">{{ DataProduct.tissue }}</a>, <a href="/data_products/{{ DataProduct.data_product_id }}/">{{ DataProduct.creation_time }}</li>
+    <tr>
+        <td>{% if DataProduct.tissue.tissuetype == "Ovary" %}<img src="https://cdn.jsdelivr.net/gh/cns-iu/md-icons@main/other-icons/organs/ico-organs-ovaries.svg" height="20">
+        {% else %}
+        <img src="https://cdn.jsdelivr.net/gh/cns-iu/md-icons@main/other-icons/organs/ico-organs-{{ DataProduct.tissue|lower }}.svg" height="20">{% endif %}
+        <a href="/data_products/{{ DataProduct.dataProductId }}/">{{ DataProduct.tissue }}</a></td><td> <a href="/data_products/{{ DataProduct.dataProductId }}/">{{ DataProduct.creation_time }}</td>
+    </tr>
     {% endfor %}
-    </ul>
+    </table>
 {% else %}
     <p>No data products are available.</p>
 {% endif %}
