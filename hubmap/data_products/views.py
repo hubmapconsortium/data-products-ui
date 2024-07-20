@@ -1,8 +1,9 @@
-from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
 from django.template import loader
 
 from .models import DataProduct, Tissue
+
 
 def index(request):
     tissue_list = Tissue.objects.order_by("tissuetype")
@@ -16,10 +17,11 @@ def index(request):
     }
     return HttpResponse(template.render(context, request))
 
-def detail(request, dataProductId):
-    #return HttpResponse("You're looking at dataProduct %s." % dataProductId)
 
-    product = get_object_or_404(DataProduct, pk=dataProductId)
+def detail(request, data_product_id):
+    # return HttpResponse("You're looking at dataProduct %s." % dataProductId)
+
+    product = get_object_or_404(DataProduct, pk=data_product_id)
     return render(request, "data_products/detail.html", {"product": product})
 
 def tissue(request, tissuetype):

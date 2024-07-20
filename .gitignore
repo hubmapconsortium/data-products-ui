@@ -1,9 +1,10 @@
 *.pyc
 *~
 .*.swp
+.DS_Store
 .idea
 __pycache__
+db.sqlite3
+media/*
 postgres
 sqlite.db*
-.DS_Store
-media/*

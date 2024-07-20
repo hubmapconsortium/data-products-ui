@@ -10,24 +10,22 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import sys
+from os import fspath
 from pathlib import Path
-import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# !!! for development, overridden in `production_settings.py` by Docker container build
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-fbrbads+f1&s^#x(o-s#ce0+0gzdx^!!fv_@ht8mp2ut(lt9ux"
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
+# /!!! for development, overridden in `production_settings.py` by Docker container build
 
 # Application definition
 
@@ -78,11 +76,14 @@ WSGI_APPLICATION = "data_products_ui.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "postgres",
+        "USER": "postgres",
+        "PASSWORD": "postgres",
+        "HOST": "db",
+        "PORT": 5432,
+    },
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -125,6 +126,33 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-MEDIA_URL="media/"
-MEDIA_ROOT=os.path.join(BASE_DIR, "media")
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
+# Keep this as the last section of this file!
+try:
+    from .local_settings import *
+except ImportError:
+    pass
+# Intended to be a temporary hack for overriding settings in production.
+# TODO: figure out a better way to do this, probably with a different path
+override_settings_file = Path("/opt/secret/override_settings.py")
+if override_settings_file.is_file():
+    print("Reading production override settings from", override_settings_file)
+    sys.path.append(fspath(override_settings_file.parent))
+    try:
+        from override_settings import *
+    except ImportError as e:
+        print("Couldn't read override settings found at", override_settings_file)
+        raise
+# Sometimes we do need to define settings in terms of other settings, so
+# this is a good place to do so, after override settings are loaded.
+# Shouldn't define any constants at this point though
+
+# !!! overrides that depend on other (including local) settings
+
+# (none yet)
+
+# /!!! overrides that depend on other (including local) settings
+
+# Do not add anything after this
