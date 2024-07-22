@@ -6,12 +6,13 @@ import json
 import re
 import os
 import pandas as pd
+import shutil
 import yaml
 from data_products.models import DataProduct, Tissue, Assay, Dataset
 from argparse import ArgumentParser
 from pathlib import Path
 
-organ_types_yaml = Path("organ_types.yaml")
+#organ_types_yaml = Path("organ_types.yaml")
 
 
 def get_tissue(tissue_yaml, tissue):
@@ -42,20 +43,22 @@ def register_tissue(tissue_type):
 def register_data_product(metadata_file, umap_file):
     metadata = read_metadata(metadata_file)
     data_product_uuid = metadata["Data Product UUID"]
-    tissue_type = get_tissue(organ_types_yaml, metadata["Tissue"])
+    tissue_type = metadata["Tissue"]
     dataset_uuids = metadata["Dataset UUIDs"]
     dataset_hbmids = metadata["Dataset HBMIDs"]
     dataset_list = register_datasets(dataset_uuids, dataset_hbmids)
     raw_cell_count = metadata["Raw Total Cell Count"]
     processed_cell_count = metadata["Processed Total Cell Count"]
     directory_url = f"https://hubmap-data-products.s3.amazonaws.com/{data_product_uuid}"
+    shiny_url = f"https://data-products.cmu.hubmapconsortium.org/shiny/{data_product_uuid}"
     data_product = DataProduct.objects.get_or_create(
         data_product_id = data_product_uuid,
         tissue = register_tissue(tissue_type),
         download = directory_url,
-        umap_plot = umap_file,
+        umap_plot = umap_file ,
         raw_total_cell_count = raw_cell_count,
-        processed_total_cell_count = processed_cell_count
+        processed_total_cell_count = processed_cell_count,
+        shiny_app = shiny_url
     )[0]
 
     for dataset in dataset_list:
@@ -92,6 +95,18 @@ def find_umaps(metadatas, directory):
     return umap_pngs   
 
 
+def copy_umaps(umap_paths):
+    new_umap_paths = []
+    for umap in umap_paths:
+        filename = os.path.basename(umap)
+        file = os.path.splitext(filename)
+        png = f"{file[0]}.png"
+        shutil.copy(umap, f"/media/{png}")
+        new_umap_path = png
+        new_umap_paths.append(new_umap_path)
+    return new_umap_paths
+
+
 def find_files(directory, pattern):
     json_files = []
     for root, dirs, files, in os.walk(directory):
@@ -111,9 +126,9 @@ def delete_json_file(directory, json_file):
 
 def main(directory):
     metadata_files = find_metadatas(directory)
-    find_umaps(metadata_files, directory)
     umap_files = find_umaps(metadata_files, directory)
-    register_data_products(metadata_files, umap_files)
+    updated_umap_files = copy_umaps(umap_files)
+    register_data_products(metadata_files, updated_umap_files)
     # for file in metadata_files:
     #     delete_json_file(directory, file)
 
