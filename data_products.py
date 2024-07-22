@@ -49,13 +49,15 @@ def register_data_product(metadata_file, umap_file):
     raw_cell_count = metadata["Raw Total Cell Count"]
     processed_cell_count = metadata["Processed Total Cell Count"]
     directory_url = f"https://hubmap-data-products.s3.amazonaws.com/{data_product_uuid}"
+    shiny_url = f"https://data-products.cmu.hubmapconsortium.org/shiny/{data_product_uuid}"
     data_product = DataProduct.objects.get_or_create(
         data_product_id = data_product_uuid,
         tissue = register_tissue(tissue_type),
         download = directory_url,
         umap_plot = umap_file,
         raw_total_cell_count = raw_cell_count,
-        processed_total_cell_count = processed_cell_count
+        processed_total_cell_count = processed_cell_count,
+        shinyApp = shiny_url
     )[0]
 
     for dataset in dataset_list:
