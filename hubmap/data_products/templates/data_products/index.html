@@ -56,7 +56,7 @@ tr:nth-child(even) {
         <td>{% if DataProduct.tissue.tissuetype == "Ovary" %}<img src="https://cdn.jsdelivr.net/gh/cns-iu/md-icons@main/other-icons/organs/ico-organs-ovaries.svg" height="20">
         {% else %}
         <img src="https://cdn.jsdelivr.net/gh/cns-iu/md-icons@main/other-icons/organs/ico-organs-{{ DataProduct.tissue|lower }}.svg" height="20">{% endif %}
-        <a href="/data_products/{{ DataProduct.dataProductId }}/">{{ DataProduct.tissue }}</a></td><td> <a href="/data_products/{{ DataProduct.dataProductId }}/">{{ DataProduct.creation_time }}</td>
+        <a href="/data_products/{{ DataProduct.data_product_id }}/">{{ DataProduct.tissue }}</a></td><td> <a href="/data_products/{{ DataProduct.data_product_id }}/">{{ DataProduct.creation_time }}</td>
     </tr>
     {% endfor %}
     </table>
