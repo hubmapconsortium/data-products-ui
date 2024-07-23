@@ -64,7 +64,8 @@ class DataProduct(models.Model):
     umap_plot = models.ImageField(null=True, blank=True, upload_to="images/")
     raw_total_cell_count = models.IntegerField(null=True, blank=True)
     processed_total_cell_count = models.IntegerField(null=True, blank=True)
-    # cell type count
+    processed_cell_type_counts = models.JSONField(blank=True)
+    raw_cell_type_counts = models.JSONField(blank=True)
 
     #link to this data product's shiny app
     shiny_app = models.URLField(null=True, blank=True)
