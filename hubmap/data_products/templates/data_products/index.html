@@ -53,10 +53,19 @@ tr:nth-child(even) {
     <th>Tissue Type</th><th>Creation Time</th>
     {% for DataProduct in latest_data_product_list %}
     <tr>
-        <td>{% if DataProduct.tissue.tissuetype == "Ovary" %}<img src="https://cdn.jsdelivr.net/gh/cns-iu/md-icons@main/other-icons/organs/ico-organs-ovaries.svg" height="20">
-        {% else %}
-        <img src="https://cdn.jsdelivr.net/gh/cns-iu/md-icons@main/other-icons/organs/ico-organs-{{ DataProduct.tissue|lower }}.svg" height="20">{% endif %}
-        <a href="/data_products/{{ DataProduct.data_product_id }}/">{{ DataProduct.tissue }}</a></td><td> <a href="/data_products/{{ DataProduct.data_product_id }}/">{{ DataProduct.creation_time }}</td>
+        <td>{% if DataProduct.tissue.tissuetype == "Knee (Left)" %}
+		<img src="https://cdn.jsdelivr.net/gh/cns-iu/md-icons@main/other-icons/organs/ico-organs-knee.svg" height="20"/>
+		{% elif DataProduct.tissue.tissuetype == "Knee (Right)" %}
+		<img src="https://cdn.jsdelivr.net/gh/cns-iu/md-icons@main/other-icons/organs/ico-organs-knee.svg" height="20"/>
+		{% elif DataProduct.tissue.tissuetype == "Lung (Left)"  or DataProduct.tissue.tissuetype == "Lung (Right)" %}
+		<img src="https://cdn.jsdelivr.net/gh/cns-iu/md-icons@main/other-icons/organs/ico-organs-lung.svg" height="20"/>
+		{% elif DataProduct.tissue.tissuetype == "Large Intestine" %}
+		<img src="https://cdn.jsdelivr.net/gh/cns-iu/md-icons@main/other-icons/organs/ico-organs-large-intestine.svg" height=20/>
+		{% elif DataProduct.tissue.tissuetype == "Lymph Node" %}
+		<img src="https://cdn.jsdelivr.net/gh/cns-iu/md-icons@main/other-icons/organs/ico-organs-lymph-nodes.svg" height=20/>
+		{% else %}
+	<img src="https://cdn.jsdelivr.net/gh/cns-iu/md-icons@main/other-icons/organs/ico-organs-{{ DataProduct.tissue|lower }}.svg" height="20"/>{% endif %}
+        <a href="/data_products/{{ DataProduct.tissue }}/">{{ DataProduct.tissue }}</a></td><td> <a href="/data_products/{{ DataProduct.data_product_id }}/">{{ DataProduct.creation_time }}</td>
     </tr>
     {% endfor %}
     </table>
