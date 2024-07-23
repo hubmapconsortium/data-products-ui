@@ -20,3 +20,5 @@ services:
     volumes:
       - /opt/secret:/opt/secret
       - /opt/data:/opt/data
+      - /pipeline_outputs:/opt/pipeline_outputs
+      - /media:/media

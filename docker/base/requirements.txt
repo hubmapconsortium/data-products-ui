@@ -1,4 +1,6 @@
 Django~=4.2
 ipython
+pandas
 Pillow
 psycopg2-binary>=2.8.6
+pyyaml
