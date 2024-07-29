@@ -48,9 +48,10 @@ tr:nth-child(even) {
 
 
    <body>
+	   <p>HuBMAP-wide data products contain consolidated data for all datasets of a particular assay type and tissue, across all datasets, assay variants, and data providers. RNA-seq data products are added as both raw and processed versions: 'raw' features gene expression count matrices from the HuBMAP RNA-seq pipeline, and 'processed' versions are the results of secondary analysis (normalization, filtering, dimensionality reduction, clustering) applied to the raw matrix.</p>
     {% if latest_data_product_list %}
     <table class="center">
-    <th>Tissue Type</th><th>Creation Time</th>
+	    <th>Tissue Type</th><th>Creation Time</th><th>Total Processed Cells</th><th>Processed Cell Types</th>
     {% for DataProduct in latest_data_product_list %}
     <tr>
         <td>{% if DataProduct.tissue.tissuetype == "Knee (Left)" %}
@@ -65,7 +66,12 @@ tr:nth-child(even) {
 		<img src="https://cdn.jsdelivr.net/gh/cns-iu/md-icons@main/other-icons/organs/ico-organs-lymph-nodes.svg" height=20/>
 		{% else %}
 	<img src="https://cdn.jsdelivr.net/gh/cns-iu/md-icons@main/other-icons/organs/ico-organs-{{ DataProduct.tissue|lower }}.svg" height="20"/>{% endif %}
-        <a href="/data_products/{{ DataProduct.tissue }}/">{{ DataProduct.tissue }}</a></td><td> <a href="/data_products/{{ DataProduct.data_product_id }}/">{{ DataProduct.creation_time }}</td>
+	<a href="/data_products/{{ DataProduct.data_product_id }}/">{{ DataProduct.tissue }}</a></td>
+	<td> <a href="/data_products/{{ DataProduct.data_product_id }}/">{{ DataProduct.creation_time }}</td>
+	<td>{{DataProduct.processed_total_cell_count}}</td>
+	<td>{% for key, value in DataProduct.processed_cell_type_counts.items %}
+		{{key}}: {{ value }}<br>
+		{% endfor %}</td>
     </tr>
     {% endfor %}
     </table>
