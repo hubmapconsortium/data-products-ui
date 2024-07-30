@@ -35,6 +35,7 @@ class Dataset(models.Model):
 class Tissue(models.Model):
 
     tissuetype = models.CharField(max_length=32)
+    tissuecode = models.CharField(max_length=2)
 
     def __repr__(self):
         return self.tissuetype
