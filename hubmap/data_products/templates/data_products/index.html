@@ -67,7 +67,7 @@ tr:nth-child(even) {
 		{% else %}
 	<img src="https://cdn.jsdelivr.net/gh/cns-iu/md-icons@main/other-icons/organs/ico-organs-{{ DataProduct.tissue|lower }}.svg" height="20"/>{% endif %}
 	<a href="/data_products/{{ DataProduct.data_product_id }}/">{{ DataProduct.tissue }}</a></td>
-	<td> <a href="/data_products/{{ DataProduct.data_product_id }}/">{{ DataProduct.creation_time }}</td>
+    <td><a href="/data_products/{{ DataProduct.data_product_id }}/">{{ DataProduct.creation_time }}</a></td>
 	<td>{{DataProduct.raw_total_cell_count}}</td>
 	<td>{% if DataProduct.raw_cell_type_counts %}
 		{{DataProduct.raw_cell_type_counts.items | length}}
@@ -88,4 +88,3 @@ tr:nth-child(even) {
 {% endif %}
   </body>
 </html>
-
