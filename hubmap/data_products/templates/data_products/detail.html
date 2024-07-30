@@ -103,10 +103,11 @@ ul {text-align: right; list-style-position: inside;}
   <body>
     <h1 style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue,sans-serif">{{ product.tissue.tissuetype }}</h1>
     {% if product.download %}
-    <p><a style="font-family:'Helvetica Neue'" href="{{product.download}}">Download Data Product</a></p>
+    <p><a style="font-family:'Arial'" href="{{product.download}}/{{product.tissue.tissuecode}}_raw.h5ad">Download Raw Data Product</a>
+    &nbsp;&nbsp;<a style="font-family:'Arial'" href="{{product.download}}/{{product.tissue.tissuecode}}_processed.h5ad">Download Processed Data Product</a></p>
     {% endif %}
     {% if product.shiny_app %}
-    <p><a style="font-family:'Helvetica Neue'" href="{{product.shiny_app}}">Shiny App</a></p>
+    <p><a style="font-family:'Arial'" href="{{product.shiny_app}}">Shiny App</a></p>
     {% endif %}
   <div class="container">
   {% if product.umap_plot %}
