@@ -105,7 +105,7 @@ def copy_umaps(umap_paths):
         filename = os.path.basename(umap)
         file = os.path.splitext(filename)
         png = f"{file[0]}.png"
-        shutil.copy(umap, f"/opt/media/{png}")
+        shutil.copy(umap, f"/opt/data-products-ui/media/{png}")
         new_umap_path = png
         new_umap_paths.append(new_umap_path)
     return new_umap_paths
