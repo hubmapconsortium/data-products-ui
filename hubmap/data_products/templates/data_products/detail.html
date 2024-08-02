@@ -92,6 +92,34 @@ ul {text-align: right; list-style-position: inside;}
   transition: all .25s ease-in;
 }
 
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 50%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+  clear: left;
+  width: 50%;
+}
+
 </style>
   </head>
     <div class="header_placeholder"></div>
@@ -113,30 +141,44 @@ ul {text-align: right; list-style-position: inside;}
   {% if product.umap_plot %}
   <img src = "{{ product.umap_plot.url }}" alt="umap plot">
   {% endif %}
-  <div class="text">
-  <h2 style="font-family:'Helvetica Neue'">{{"Datasets in this Data Product:"}}</h2> 
-  <ul style="font-family:'Helvetica Neue'">  
+  </div>
+  <button type="button" class="collapsible">{{"Datasets in this Data Product"}}<span class="down-caret"></span></button>
+  <div class="content"> 
     {% for dataset in product.datasets.all %}
-    	<li>{{ dataset.hbmid }}</li>
+    	{{ dataset.hbmid }}<br>
     {% endfor %}
-    </ul>
     </div>
     {% if product.processed_cell_type_counts %}
-    <div class="dropdown">
-      <button class="dropbtn">Processed Cell Types<span class="down-caret"></span></button>
-      <div class="dropdown-content">
+      <button type="button" class="collapsible">{{"Processed Cell Types"}}<span class="down-caret"></span></button>
+      <div class="content">
       {% for key, value in product.processed_cell_type_counts.items %}
         {{ key }}: {{value}}<br>
       {% endfor %}
     {% endif %}
-      </div>
     </div>
-    </div>
-    <!--{% if product.download %}
+    <!--</div>
+    {% if product.download %}
     <a style="font-family:'Helvetica Neue'" href="{{product.download}}">Download Data Product</a>
     {% endif %}<p>
     {% if product.shiny_app %}
     <a style="font-family:'Helvetica Neue'" href="{{product.shiny_app}}">Shiny App</a>
     {% endif %}-->
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "list-item") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "list-item";
+    }
+  });
+}
+</script>
+
   </body>
 </html>
