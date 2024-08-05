@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en-US">
+	<html lang="en-US">
   <head>
     <meta charset="utf-8" />
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
@@ -66,9 +66,13 @@ ul {text-align: right; list-style-position: inside;}
   padding: 18px;
   width: 40%;
   border: none;
+  margin-right: 10px;
+  margin-bottom: 20px;
   text-align: left;
   outline: none;
   font-size: 15px;
+  position: static;
+  clear: both;
 }
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
@@ -82,8 +86,9 @@ ul {text-align: right; list-style-position: inside;}
   display: none;
   overflow: hidden;
   background-color: #f1f1f1;
-  clear: left;
+  clear: inherit;
   width: 37.5%;
+  position: static;
 }
 
 </style>
@@ -91,8 +96,8 @@ ul {text-align: right; list-style-position: inside;}
     <div class="header_placeholder"></div>
 
 <div class="topnav">
-  <a id="logo" href="https://hubmapconsortium.org" title="HuBMAP Consortium" data-height="50" data-padding="15"><img class="logo-main scale-with-grid" src="https://hubmapconsortium.org/wp-content/uploads/2023/03/hubmap-with-name-_medium@0.5x.png" height="50"></a>
-
+  <a id="logo" href="https://hubmapconsortium.org" title="HuBMAP Consortium" data-height="50" data-padding="15"><img class="logo-main scale-with-grid" src="https://hubmapconsortium.org/wp-content/uploads/2023/03/hubmap-with-name-_medium@0.5x.png" height="46"></a>
+<a href="{% url 'index' %}" style="font-family:'Arial'; font-size:50px">Index</a>
 </div>
   <body>
     <h1 style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue,sans-serif">{{ product.tissue.tissuetype }}</h1>
@@ -107,23 +112,22 @@ ul {text-align: right; list-style-position: inside;}
   {% if product.umap_plot %}
   <img src = "{{ product.umap_plot.url }}" alt="umap plot">
   {% endif %}
-  </div>
   <button type="button" class="collapsible">{{"Datasets in this Data Product"}}<span class="down-caret"></span></button>
-  <div class="content"> 
+  <div class="content">
     {% for dataset in product.datasets.all %}
     	{{ dataset.hbmid }}<br>
     {% endfor %}
     </div>
     {% if product.processed_cell_type_counts %}
-      <button type="button" class="collapsible">{{"Processed Cell Types"}}<span class="down-caret"></span></button>
-      <div class="content">
+	<br><button type="button" class="collapsible">{{"Processed Cell Types"}}<span class="down-caret"></span></button>
+	      <div class="content">
       {% for key, value in product.processed_cell_type_counts.items %}
         {{ key }}: {{value}}<br>
       {% endfor %}
     {% endif %}
     </div>
-    <!--</div>
-    {% if product.download %}
+    </div>
+    <!--{% if product.download %}
     <a style="font-family:'Helvetica Neue'" href="{{product.download}}">Download Data Product</a>
     {% endif %}<p>
     {% if product.shiny_app %}
