@@ -13,8 +13,11 @@ ul {text-align: right; list-style-position: inside;}
 
 .container {
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: center;
+  align-content: space-around;
+  flex-wrap: nowrap;
+
 }
 
 .text {
@@ -66,14 +69,17 @@ ul {text-align: right; list-style-position: inside;}
   padding: 18px;
   width: 40%;
   border: none;
-  margin-right: 10px;
+  margin-left: 10px;
   margin-bottom: 20px;
   text-align: left;
   outline: none;
   font-size: 15px;
   position: static;
   clear: both;
+  justify-content: space-between;
+  align-self: self-start;
 }
+
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 .active, .collapsible:hover {
@@ -88,7 +94,7 @@ ul {text-align: right; list-style-position: inside;}
   background-color: #f1f1f1;
   clear: inherit;
   width: 37.5%;
-  position: static;
+  position: relative;
 }
 
 </style>
@@ -112,6 +118,7 @@ ul {text-align: right; list-style-position: inside;}
   {% if product.umap_plot %}
   <img src = "{{ product.umap_plot.url }}" alt="umap plot">
   {% endif %}
+  <div class="container">
   <button type="button" class="collapsible">{{"Datasets in this Data Product"}}<span class="down-caret"></span></button>
   <div class="content">
     {% for dataset in product.datasets.all %}
@@ -119,7 +126,7 @@ ul {text-align: right; list-style-position: inside;}
     {% endfor %}
     </div>
     {% if product.processed_cell_type_counts %}
-	<br><button type="button" class="collapsible">{{"Processed Cell Types"}}<span class="down-caret"></span></button>
+	<br><br><button type="button" class="collapsible">{{"Processed Cell Types"}}<span class="down-caret"></span></button>
 	      <div class="content">
       {% for key, value in product.processed_cell_type_counts.items %}
         {{ key }}: {{value}}<br>
@@ -127,6 +134,7 @@ ul {text-align: right; list-style-position: inside;}
     {% endif %}
     </div>
     </div>
+    </div>    
     <!--{% if product.download %}
     <a style="font-family:'Helvetica Neue'" href="{{product.download}}">Download Data Product</a>
     {% endif %}<p>
