@@ -121,8 +121,8 @@ ul {text-align: right; list-style-position: inside;}
   <div class="container">
   <button type="button" class="collapsible">{{"Datasets in this Data Product"}}<span class="down-caret"></span></button>
   <div class="content">
-    {% for dataset in product.datasets.all %}
-    	{{ dataset.hbmid }}<br>
+   {% for dataset in product.datasets.all %}
+    	<a href="https://portal.hubmapconsortium.org/browse/dataset/{{ dataset.uuid }}">{{ dataset.hbmid }}</a><br>
     {% endfor %}
     </div>
     {% if product.processed_cell_type_counts %}
