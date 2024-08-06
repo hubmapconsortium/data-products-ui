@@ -11,6 +11,17 @@ p, div {text-align: center;}
 li {text-align: left; padding-left: 40px;  list-style: disc inside;}
 ul {text-align: left; list-style-position: inherit;}
 
+table, th, td {
+  border: solid #CCC;
+}
+table {
+  width: 100%;
+}
+th, td {
+  padding: 0;
+  text-align: justify;
+}
+
 .container {
   display: inline-block;
   align-items: start;
@@ -125,9 +136,12 @@ ul {text-align: left; list-style-position: inherit;}
     {% if product.processed_cell_type_counts %}
 	<br><br><button type="button" class="collapsible">{{"Processed Cell Types"}}<span class="down-caret"></span></button>
 	      <div class="content">
+      <table>
       {% for key, value in product.processed_cell_type_counts.items %}
-        <a style="font-family:'Arial'">{{ key }}: {{value}}</a><br>
+        <tr><td><a style="font-family:'Arial'">{{ key }}</a></td>
+            <td><a style="font-family:'Arial'">{{value}}</a></td></tr>
       {% endfor %}
+      </table>
     {% endif %}
     </div>
 <script>
