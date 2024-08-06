@@ -12,7 +12,7 @@ li {text-align: right;}
 ul {text-align: right; list-style-position: inside;}
 
 .container {
-  display: flex;
+  display: inline-block;
   align-items: start;
   justify-content: center;
   align-content: space-around;
@@ -63,21 +63,18 @@ ul {text-align: right; list-style-position: inside;}
 
 /* Style the button that is used to open and close the collapsible content */
 .collapsible {
+  display: inline-block;
   background-color: #eee;
   color: #444;
   cursor: pointer;
   padding: 18px;
-  width: 40%;
+  width: 25%;
   border: none;
-  margin-left: 10px;
-  margin-bottom: 20px;
   text-align: left;
   outline: none;
   font-size: 15px;
   position: static;
   clear: both;
-  justify-content: space-between;
-  align-self: self-start;
 }
 
 
@@ -93,7 +90,7 @@ ul {text-align: right; list-style-position: inside;}
   overflow: hidden;
   background-color: #f1f1f1;
   clear: inherit;
-  width: 37.5%;
+  width: 22.6%;
   position: relative;
 }
 
@@ -114,11 +111,10 @@ ul {text-align: right; list-style-position: inside;}
     {% if product.shiny_app %}
     <p><a style="font-family:'Arial'" href="{{product.shiny_app}}">Shiny App</a></p>
     {% endif %}
-  <div class="container">
   {% if product.umap_plot %}
-  <img src = "{{ product.umap_plot.url }}" alt="umap plot">
+  <img style="float: left; margin-left: 60px; margin-right: 100px; display: inline-block;" src  = "{{ product.umap_plot.url }}" alt="umap plot">
   {% endif %}
-  <div class="container">
+  <br>
   <button type="button" class="collapsible">{{"Datasets in this Data Product"}}<span class="down-caret"></span></button>
   <div class="content">
    {% for dataset in product.datasets.all %}
@@ -133,8 +129,6 @@ ul {text-align: right; list-style-position: inside;}
       {% endfor %}
     {% endif %}
     </div>
-    </div>
-    </div>    
 <script>
 var coll = document.getElementsByClassName("collapsible");
 var i;
