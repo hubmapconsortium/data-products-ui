@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en-US">
+	<html lang="en-US">
   <head>
     <meta charset="utf-8" />
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
@@ -12,9 +12,12 @@ li {text-align: right;}
 ul {text-align: right; list-style-position: inside;}
 
 .container {
-  display: flex;
-  align-items: center;
+  display: inline-block;
+  align-items: start;
   justify-content: center;
+  align-content: space-around;
+  flex-wrap: nowrap;
+
 }
 
 .text {
@@ -43,40 +46,6 @@ ul {text-align: right; list-style-position: inside;}
   margin-right: auto;
   width: 50%;
 }
-.dropbtn {
-  background-color: #454a63;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-}
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown-content a:hover {background-color: #ddd;}
-
-.dropdown:hover .dropdown-content {display: block;}
-
-.dropdown:hover .dropbtn {background-color: #7393B3;}
 
 .down-caret {
   width: 0;
@@ -92,13 +61,46 @@ ul {text-align: right; list-style-position: inside;}
   transition: all .25s ease-in;
 }
 
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  display: inline-block;
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 25%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  position: static;
+  clear: both;
+}
+
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+  clear: inherit;
+  width: 22.6%;
+  position: relative;
+}
+
 </style>
   </head>
     <div class="header_placeholder"></div>
 
 <div class="topnav">
-  <a id="logo" href="https://hubmapconsortium.org" title="HuBMAP Consortium" data-height="50" data-padding="15"><img class="logo-main scale-with-grid" src="https://hubmapconsortium.org/wp-content/uploads/2023/03/hubmap-with-name-_medium@0.5x.png" height="50"></a>
-
+  <a id="logo" href="https://hubmapconsortium.org" title="HuBMAP Consortium" data-height="50" data-padding="50"><img class="logo-main scale-with-grid" src="https://hubmapconsortium.org/wp-content/uploads/2023/03/hubmap-with-name-_medium@0.5x.png" height="46"></a>
+<a href="{% url 'index' %}" style="font-family:'Arial'; font-size:30px; padding-top: 20px">Index</a>
 </div>
   <body>
     <h1 style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue,sans-serif">{{ product.tissue.tissuetype }}</h1>
@@ -109,34 +111,40 @@ ul {text-align: right; list-style-position: inside;}
     {% if product.shiny_app %}
     <p><a style="font-family:'Arial'" href="{{product.shiny_app}}">Shiny App</a></p>
     {% endif %}
-  <div class="container">
   {% if product.umap_plot %}
-  <img src = "{{ product.umap_plot.url }}" alt="umap plot">
+  <img style="float: left; margin-left: 60px; margin-right: 100px; display: inline-block;" src  = "{{ product.umap_plot.url }}" alt="umap plot">
   {% endif %}
-  <div class="text">
-  <h2 style="font-family:'Helvetica Neue'">{{"Datasets in this Data Product:"}}</h2> 
-  <ul style="font-family:'Helvetica Neue'">  
-    {% for dataset in product.datasets.all %}
-    	<li>{{ dataset.hbmid }}</li>
+  <br>
+  <button type="button" class="collapsible">{{"Datasets in this Data Product"}}<span class="down-caret"></span></button>
+  <div class="content">
+   {% for dataset in product.datasets.all %}
+    	<a href="https://portal.hubmapconsortium.org/browse/dataset/{{ dataset.uuid }}", style="font-family:'Arial'">{{ dataset.hbmid }}</a><br>
     {% endfor %}
-    </ul>
     </div>
     {% if product.processed_cell_type_counts %}
-    <div class="dropdown">
-      <button class="dropbtn">Processed Cell Types<span class="down-caret"></span></button>
-      <div class="dropdown-content">
+	<br><br><button type="button" class="collapsible">{{"Processed Cell Types"}}<span class="down-caret"></span></button>
+	      <div class="content">
       {% for key, value in product.processed_cell_type_counts.items %}
-        {{ key }}: {{value}}<br>
+        <a style="font-family:'Arial'">{{ key }}: {{value}}</a><br>
       {% endfor %}
     {% endif %}
-      </div>
     </div>
-    </div>
-    <!--{% if product.download %}
-    <a style="font-family:'Helvetica Neue'" href="{{product.download}}">Download Data Product</a>
-    {% endif %}<p>
-    {% if product.shiny_app %}
-    <a style="font-family:'Helvetica Neue'" href="{{product.shiny_app}}">Shiny App</a>
-    {% endif %}-->
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "list-item") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "list-item";
+    }
+  });
+}
+</script>
+
   </body>
 </html>
