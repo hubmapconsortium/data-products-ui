@@ -102,8 +102,8 @@ ul {text-align: right; list-style-position: inside;}
     <div class="header_placeholder"></div>
 
 <div class="topnav">
-  <a id="logo" href="https://hubmapconsortium.org" title="HuBMAP Consortium" data-height="50" data-padding="15"><img class="logo-main scale-with-grid" src="https://hubmapconsortium.org/wp-content/uploads/2023/03/hubmap-with-name-_medium@0.5x.png" height="46"></a>
-<a href="{% url 'index' %}" style="font-family:'Arial'; font-size:50px">Index</a>
+  <a id="logo" href="https://hubmapconsortium.org" title="HuBMAP Consortium" data-height="50" data-padding="20"><img class="logo-main scale-with-grid" src="https://hubmapconsortium.org/wp-content/uploads/2023/03/hubmap-with-name-_medium@0.5x.png" height="46"></a>
+<a href="{% url 'index' %}" style="font-family:'Arial'; font-size:30px; padding-top: 20px">Index</a>
 </div>
   <body>
     <h1 style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue,sans-serif">{{ product.tissue.tissuetype }}</h1>
@@ -135,12 +135,6 @@ ul {text-align: right; list-style-position: inside;}
     </div>
     </div>
     </div>    
-    <!--{% if product.download %}
-    <a style="font-family:'Helvetica Neue'" href="{{product.download}}">Download Data Product</a>
-    {% endif %}<p>
-    {% if product.shiny_app %}
-    <a style="font-family:'Helvetica Neue'" href="{{product.shiny_app}}">Shiny App</a>
-    {% endif %}-->
 <script>
 var coll = document.getElementsByClassName("collapsible");
 var i;
