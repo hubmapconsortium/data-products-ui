@@ -102,7 +102,7 @@ ul {text-align: right; list-style-position: inside;}
     <div class="header_placeholder"></div>
 
 <div class="topnav">
-  <a id="logo" href="https://hubmapconsortium.org" title="HuBMAP Consortium" data-height="50" data-padding="20"><img class="logo-main scale-with-grid" src="https://hubmapconsortium.org/wp-content/uploads/2023/03/hubmap-with-name-_medium@0.5x.png" height="46"></a>
+  <a id="logo" href="https://hubmapconsortium.org" title="HuBMAP Consortium" data-height="50" data-padding="50"><img class="logo-main scale-with-grid" src="https://hubmapconsortium.org/wp-content/uploads/2023/03/hubmap-with-name-_medium@0.5x.png" height="46"></a>
 <a href="{% url 'index' %}" style="font-family:'Arial'; font-size:30px; padding-top: 20px">Index</a>
 </div>
   <body>
@@ -122,14 +122,14 @@ ul {text-align: right; list-style-position: inside;}
   <button type="button" class="collapsible">{{"Datasets in this Data Product"}}<span class="down-caret"></span></button>
   <div class="content">
    {% for dataset in product.datasets.all %}
-    	<a href="https://portal.hubmapconsortium.org/browse/dataset/{{ dataset.uuid }}">{{ dataset.hbmid }}</a><br>
+    	<a href="https://portal.hubmapconsortium.org/browse/dataset/{{ dataset.uuid }}", style="font-family:'Arial'">{{ dataset.hbmid }}</a><br>
     {% endfor %}
     </div>
     {% if product.processed_cell_type_counts %}
 	<br><br><button type="button" class="collapsible">{{"Processed Cell Types"}}<span class="down-caret"></span></button>
 	      <div class="content">
       {% for key, value in product.processed_cell_type_counts.items %}
-        {{ key }}: {{value}}<br>
+        <a style="font-family:'Arial'">{{ key }}: {{value}}</a><br>
       {% endfor %}
     {% endif %}
     </div>
