@@ -8,8 +8,8 @@
 
 h1, h2 {text-align: center;}
 p, div {text-align: center;}
-li {text-align: right;}
-ul {text-align: right; list-style-position: inside;}
+li {text-align: center;}
+ul {text-align: center; list-style-position: inside;}
 
 .container {
   display: inline-block;
@@ -104,6 +104,7 @@ ul {text-align: right; list-style-position: inside;}
 </div>
   <body>
     <h1 style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue,sans-serif">{{ product.tissue.tissuetype }}</h1>
+    <h2 style="font-family:'Arial'">{{ product.processed_total_cell_count }} Cells/Nuclei in Processed Product</h2>
     {% if product.download %}
     <p><a style="font-family:'Arial'" href="{{product.download}}/{{product.tissue.tissuecode}}_raw.h5ad">Download Raw Data Product</a>
     &nbsp;&nbsp;<a style="font-family:'Arial'" href="{{product.download}}/{{product.tissue.tissuecode}}_processed.h5ad">Download Processed Data Product</a></p>
@@ -117,9 +118,9 @@ ul {text-align: right; list-style-position: inside;}
   <br>
   <button type="button" class="collapsible">{{"Datasets in this Data Product"}}<span class="down-caret"></span></button>
   <div class="content">
-   {% for dataset in product.datasets.all %}
-    	<a href="https://portal.hubmapconsortium.org/browse/dataset/{{ dataset.uuid }}", style="font-family:'Arial'">{{ dataset.hbmid }}</a><br>
-    {% endfor %}
+   <ul>{% for dataset in product.datasets.all %}
+    	<li><a href="https://portal.hubmapconsortium.org/browse/dataset/{{ dataset.uuid }}", style="font-family:'Arial'">{{ dataset.hbmid }}</a></li><br>
+    {% endfor %}</ul>
     </div>
     {% if product.processed_cell_type_counts %}
 	<br><br><button type="button" class="collapsible">{{"Processed Cell Types"}}<span class="down-caret"></span></button>
