@@ -63,12 +63,12 @@ class DataProduct(models.Model):
     tissue = models.ForeignKey(Tissue, on_delete=models.CASCADE)
     download = models.URLField(null=True, blank=True)
     umap_plot = models.ImageField(null=True, blank=True, upload_to="images/")
-    raw_total_cell_count = models.IntegerField(null=True, blank=True)
-    processed_total_cell_count = models.IntegerField(null=True, blank=True)
+    raw_total_cell_count = models.PositiveIntegerField(null=True, blank=True)
+    processed_total_cell_count = models.PositiveIntegerField(null=True, blank=True)
     processed_cell_type_counts = models.JSONField(blank=True)
     raw_cell_type_counts = models.JSONField(blank=True)
-    raw_file_size_bytes = models.IntegerField(null=True, blank=True)
-    processed_file_sizes_bytes = models.IntegerField(null=True, blank=True)
+    raw_file_size_bytes = models.PositiveIntegerField(blank=True)
+    processed_file_sizes_bytes = models.PositiveIntegerField(blank=True)
 
     #link to this data product's shiny app
     shiny_app = models.URLField(null=True, blank=True)
