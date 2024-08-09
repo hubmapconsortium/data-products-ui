@@ -53,6 +53,8 @@ def register_data_product(metadata_file, umap_file):
     shiny_url = f"https://data-products.cmu.hubmapconsortium.org/shiny/{data_product_uuid}"
     raw_cell_types_counts = metadata["Raw Cell Type Counts"]
     processed_cell_types_counts = metadata["Processed Cell Type Counts"]
+    raw_file_size = metadata["Raw File Size"]
+    processed_file_size = metadata["Processed File Size"]
     data_product = DataProduct.objects.get_or_create(
         data_product_id = data_product_uuid,
         tissue = register_tissue(tissue_type),
@@ -62,7 +64,9 @@ def register_data_product(metadata_file, umap_file):
         processed_total_cell_count = processed_cell_count,
         shiny_app = shiny_url,
         raw_cell_type_counts = raw_cell_types_counts,
-        processed_cell_type_counts = processed_cell_types_counts
+        processed_cell_type_counts = processed_cell_types_counts,
+        raw_file_size_bytes = raw_file_size,
+        processed_file_sizes_bytes = processed_file_size
     )[0]
 
     for dataset in dataset_list:

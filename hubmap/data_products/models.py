@@ -67,6 +67,8 @@ class DataProduct(models.Model):
     processed_total_cell_count = models.IntegerField(null=True, blank=True)
     processed_cell_type_counts = models.JSONField(blank=True)
     raw_cell_type_counts = models.JSONField(blank=True)
+    raw_file_size_bytes = models.IntegerField(null=True, blank=True)
+    processed_file_sizes_bytes = models.IntegerField(null=True, blank=True)
 
     #link to this data product's shiny app
     shiny_app = models.URLField(null=True, blank=True)
