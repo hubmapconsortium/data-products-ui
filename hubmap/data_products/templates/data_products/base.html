@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: dark)">
+    <title>Index of Data Products</title>
+    <style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1, h2 {text-align: center;}
+p, div {text-align: center;}
+li {text-align: left; padding-left: 40px;  list-style: disc inside;}
+ul {text-align: left; list-style-position: inherit;}
+
+.topnav {
+  overflow: hidden;
+  background-color: #454a63;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+.down-caret {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 5px 5px 0 5px;
+  border-color: #ffffff transparent transparent transparent;
+  display: inline-block;
+  margin-left: 6px;
+  top: -3px;
+  position: relative;
+  transform: rotate(0deg);
+  transition: all .25s ease-in;
+}
+
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  display: inline-block;
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 25%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  position: static;
+  clear: both;
+}
+
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+  clear: inherit;
+  width: 22.6%;
+  position: relative;
+}
+
+</style>
+  </head>
+  <div class="header_placeholder"></div>
+
+<div class="topnav">
+  <a id="logo" href="https://hubmapconsortium.org" title="HuBMAP Consortium" data-height="50" data-padding="15"><img class="logo-main scale-with-grid" src="https://hubmapconsortium.org/wp-content/uploads/2023/03/hubmap-with-name-_medium@0.5x.png" height="50"></a>
+
+</div>
+
+
+   <body>
+	   {% block content %}
+	   {% endblock %}
+  </body>
+</html>
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "list-item") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "list-item";
+    }
+  });
+}
+</script>
