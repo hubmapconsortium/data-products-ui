@@ -51,6 +51,10 @@ def register_data_product(metadata_file, umap_file):
     processed_cell_count = metadata["Processed Total Cell Count"]
     directory_url = f"https://hubmap-data-products.s3.amazonaws.com/{data_product_uuid}"
     shiny_url = f"https://data-products.cmu.hubmapconsortium.org/shiny/{data_product_uuid}"
+    raw_cell_types_counts = metadata["Raw Cell Type Counts"]
+    processed_cell_types_counts = metadata["Processed Cell Type Counts"]
+    raw_file_size = metadata["Raw File Size"]
+    processed_file_size = metadata["Processed File Size"]
     data_product = DataProduct.objects.get_or_create(
         data_product_id = data_product_uuid,
         tissue = register_tissue(tissue_type),
@@ -58,7 +62,11 @@ def register_data_product(metadata_file, umap_file):
         umap_plot = umap_file ,
         raw_total_cell_count = raw_cell_count,
         processed_total_cell_count = processed_cell_count,
-        shiny_app = shiny_url
+        shiny_app = shiny_url,
+        raw_cell_type_counts = raw_cell_types_counts,
+        processed_cell_type_counts = processed_cell_types_counts,
+        raw_file_size_bytes = raw_file_size,
+        processed_file_sizes_bytes = processed_file_size
     )[0]
 
     for dataset in dataset_list:
@@ -101,7 +109,7 @@ def copy_umaps(umap_paths):
         filename = os.path.basename(umap)
         file = os.path.splitext(filename)
         png = f"{file[0]}.png"
-        shutil.copy(umap, f"/media/{png}")
+        shutil.copy(umap, f"/opt/media/{png}")
         new_umap_path = png
         new_umap_paths.append(new_umap_path)
     return new_umap_paths
@@ -129,8 +137,8 @@ def main(directory):
     umap_files = find_umaps(metadata_files, directory)
     updated_umap_files = copy_umaps(umap_files)
     register_data_products(metadata_files, updated_umap_files)
-    # for file in metadata_files:
-    #     delete_json_file(directory, file)
+    for file in metadata_files:
+        delete_json_file(directory, file)
 
 
 if __name__ == "__main__":
