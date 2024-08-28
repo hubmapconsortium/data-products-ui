@@ -92,17 +92,17 @@ tr:nth-child(even) {
 </style>
   </head>
   <div class="header_placeholder"></div>
-
-<div class="topnav">
+{% block nav %}
+<!--<div class="topnav">
   <a id="logo" href="https://hubmapconsortium.org" title="HuBMAP Consortium" data-height="50" data-padding="15"><img class="logo-main scale-with-grid" src="https://hubmapconsortium.org/wp-content/uploads/2023/03/hubmap-with-name-_medium@0.5x.png" height="50"></a>
 
-</div>
+</div>-->
+{% endblock %}
+<body>
 
-
-   <body>
 	   {% block content %}
 	   {% endblock %}
-  </body>
+</body>
 </html>
 <script>
 var coll = document.getElementsByClassName("collapsible");
