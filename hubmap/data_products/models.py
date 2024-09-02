@@ -19,9 +19,6 @@ class Dataset(models.Model):
 
     uuid = models.CharField(max_length=32)
     hbmid = models.CharField(max_length=16)
-    data_product = models.ForeignKey(
-        "DataProduct", on_delete=models.CASCADE, null=True, blank=True, related_name="datasets"
-    )
 
     annotation_metadata = models.JSONField(default=annotation_default)
 
@@ -68,6 +65,9 @@ class DataProduct(models.Model):
 
     creation_time = models.DateTimeField(auto_now_add=True)
     tissue = models.ForeignKey(Tissue, on_delete=models.CASCADE)
+
+    dataSets = models.ManyToManyField(Dataset, blank=True)
+    
     download = models.URLField(null=True, blank=True)
     umap_plot = models.ImageField(null=True, blank=True, upload_to="images/")
     raw_total_cell_count = models.PositiveIntegerField(null=True, blank=True)
