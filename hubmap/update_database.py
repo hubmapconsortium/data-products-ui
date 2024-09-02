@@ -19,8 +19,6 @@ def change_dataset_mapping():
         data_prod.dataSets.add(ds)
 
 def main():
-    if reset:
-        reset_sizes()
     change_dataset_mapping()
 
 if __name__ == "__main__":
