@@ -1,109 +1,13 @@
-<!doctype html>
-	<html lang="en-US">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: dark)">
-<style>
-
-h1, h2 {text-align: center;}
-p, div {text-align: center;}
-li {text-align: right;}
-ul {text-align: right; list-style-position: inside;}
-
-.container {
-  display: inline-block;
-  align-items: start;
-  justify-content: center;
-  align-content: space-around;
-  flex-wrap: nowrap;
-
-}
-
-.text {
-  font-size: 20px;
-  padding-left: 20px;
-  padding-top: 20%;
-  float: left;
-}
-
-.topnav {
-  overflow: hidden;
-  background-color: #454a63;
-}
-
-.topnav a {
-  float: left;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-}
-
-.down-caret {
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 5px 5px 0 5px;
-  border-color: #ffffff transparent transparent transparent;
-  display: inline-block;
-  margin-left: 6px;
-  top: -3px;
-  position: relative;
-  transform: rotate(0deg);
-  transition: all .25s ease-in;
-}
-
-/* Style the button that is used to open and close the collapsible content */
-.collapsible {
-  display: inline-block;
-  background-color: #eee;
-  color: #444;
-  cursor: pointer;
-  padding: 18px;
-  width: 25%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
-  position: static;
-  clear: both;
-}
-
-
-/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.active, .collapsible:hover {
-  background-color: #ccc;
-}
-
-/* Style the collapsible content. Note: hidden by default */
-.content {
-  padding: 0 18px;
-  display: none;
-  overflow: hidden;
-  background-color: #f1f1f1;
-  clear: inherit;
-  width: 22.6%;
-  position: relative;
-}
-
-</style>
-  </head>
-    <div class="header_placeholder"></div>
-
+{% extends "data_products/base.html" %}
+{% block nav %}
 <div class="topnav">
   <a id="logo" href="https://hubmapconsortium.org" title="HuBMAP Consortium" data-height="50" data-padding="50"><img class="logo-main scale-with-grid" src="https://hubmapconsortium.org/wp-content/uploads/2023/03/hubmap-with-name-_medium@0.5x.png" height="46"></a>
 <a href="{% url 'index' %}" style="font-family:'Arial'; font-size:30px; padding-top: 20px">Index</a>
 </div>
-  <body>
+{% endblock %}
+{% block content %}
     <h1 style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue,sans-serif">{{ product.tissue.tissuetype }}</h1>
+    <h2 style="font-family:'Arial'"; font-size:25px>{{ product.processed_total_cell_count }} Cells/Nuclei in Processed Product</h2>
     {% if product.download %}
     <p><a style="font-family:'Arial'" href="{{product.download}}/{{product.tissue.tissuecode}}_raw.h5ad">Download Raw Data Product</a>
     &nbsp;&nbsp;<a style="font-family:'Arial'" href="{{product.download}}/{{product.tissue.tissuecode}}_processed.h5ad">Download Processed Data Product</a></p>
@@ -114,22 +18,25 @@ ul {text-align: right; list-style-position: inside;}
   {% if product.umap_plot %}
   <img style="float: left; margin-left: 60px; margin-right: 100px; display: inline-block;" src  = "{{ product.umap_plot.url }}" alt="umap plot">
   {% endif %}
-  <br>
-  <button type="button" class="collapsible">{{"Datasets in this Data Product"}}<span class="down-caret"></span></button>
+	  <br>
+	  <button type="button" class="collapsible">{{"Datasets in this Data Product"}}<span class="down-caret"></span></button>
   <div class="content">
-   {% for dataset in product.datasets.all %}
-    	<a href="https://portal.hubmapconsortium.org/browse/dataset/{{ dataset.uuid }}", style="font-family:'Arial'">{{ dataset.hbmid }}</a><br>
-    {% endfor %}
+   <ul>{% for dataset in product.datasets.all %}
+    	<li><a href="https://portal.hubmapconsortium.org/browse/dataset/{{ dataset.uuid }}", style="font-family:'Arial'">{{ dataset.hbmid }}</a></li><br>
+    {% endfor %}</ul>
     </div>
     {% if product.processed_cell_type_counts %}
 	<br><br><button type="button" class="collapsible">{{"Processed Cell Types"}}<span class="down-caret"></span></button>
 	      <div class="content">
+      <table>
       {% for key, value in product.processed_cell_type_counts.items %}
-        <a style="font-family:'Arial'">{{ key }}: {{value}}</a><br>
+        <tr><td><a style="font-family:'Arial'">{{ key }}</a></td>
+            <td><a style="font-family:'Arial'">{{value}}</a></td></tr>
       {% endfor %}
+      </table>
     {% endif %}
     </div>
-<script>
+<!--<script>
 var coll = document.getElementsByClassName("collapsible");
 var i;
 
@@ -144,7 +51,5 @@ for (i = 0; i < coll.length; i++) {
     }
   });
 }
-</script>
-
-  </body>
-</html>
+</script>-->
+{% endblock %}

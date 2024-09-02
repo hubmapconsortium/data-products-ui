@@ -48,6 +48,13 @@ class Assay(models.Model):
 
     assayName = models.CharField(max_length=32)
 
+    @classmethod
+    def get_default_pk(cls):
+        assay, created = cls.objects.get_or_create(
+            assayName = "default"
+        )
+        return assay.pk
+
     def __repr__(self):
         return self.assayName
 
@@ -67,8 +74,9 @@ class DataProduct(models.Model):
     processed_total_cell_count = models.PositiveIntegerField(null=True, blank=True)
     processed_cell_type_counts = models.JSONField(blank=True)
     raw_cell_type_counts = models.JSONField(blank=True)
-    raw_file_size_bytes = models.PositiveIntegerField(blank=True)
-    processed_file_sizes_bytes = models.PositiveIntegerField(blank=True)
+    raw_file_size_bytes = models.PositiveBigIntegerField(blank=True)
+    processed_file_sizes_bytes = models.PositiveBigIntegerField(blank=True)
+    assay = models.ForeignKey(Assay, on_delete=models.CASCADE, default=Assay.get_default_pk)
 
     #link to this data product's shiny app
     shiny_app = models.URLField(null=True, blank=True)

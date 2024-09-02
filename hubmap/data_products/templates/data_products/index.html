@@ -1,59 +1,11 @@
-<!doctype html>
-<html lang="en-US">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: dark)">
-    <title>Index of Data Products</title>
-    <style>
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.topnav {
-  overflow: hidden;
-  background-color: #454a63;
-}
-
-.topnav a {
-  float: left;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-.center {
-  margin-left: auto;
-  margin-right: auto;
-}
-p {
-  margin-top: 25px;
-  margin-bottom: 25px;
-  margin-right: 150px;
-  margin-left: 100px;
-}
-</style>
-  </head>
-  <div class="header_placeholder"></div>
-
+{% extends "data_products/base.html" %}
+{% block nav %}
 <div class="topnav">
   <a id="logo" href="https://hubmapconsortium.org" title="HuBMAP Consortium" data-height="50" data-padding="15"><img class="logo-main scale-with-grid" src="https://hubmapconsortium.org/wp-content/uploads/2023/03/hubmap-with-name-_medium@0.5x.png" height="50"></a>
 
 </div>
-
-
-   <body>
+{% endblock %}
+{% block content %}
 	   <p>HuBMAP-wide data products contain consolidated data for all datasets of a particular assay type and tissue, across all datasets, assay variants, and data providers. RNA-seq data products are added as both raw and processed versions: 'raw' features gene expression count matrices from the HuBMAP RNA-seq pipeline, and 'processed' versions are the results of secondary analysis (normalization, filtering, dimensionality reduction, clustering) applied to the raw matrix.</p>
     {% if latest_data_product_list %}
     <table class="center">
@@ -94,5 +46,4 @@ p {
 {% else %}
     <p>No data products are available.</p>
 {% endif %}
-  </body>
-</html>
+{% endblock %}
