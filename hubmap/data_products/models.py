@@ -74,8 +74,8 @@ class DataProduct(models.Model):
     processed_total_cell_count = models.PositiveIntegerField(null=True, blank=True)
     processed_cell_type_counts = models.JSONField(blank=True)
     raw_cell_type_counts = models.JSONField(blank=True)
-    raw_file_size_bytes = models.PositiveBigIntegerField(blank=True, null=True, default=0)
-    processed_file_sizes_bytes = models.PositiveBigIntegerField(blank=True, null=True, default=0)
+    raw_file_size_bytes = models.PositiveBigIntegerField(blank=True)
+    processed_file_sizes_bytes = models.PositiveBigIntegerField(blank=True)
     assay = models.ForeignKey(Assay, on_delete=models.CASCADE, default=Assay.get_default_pk)
 
     #link to this data product's shiny app
