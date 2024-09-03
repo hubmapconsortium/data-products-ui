@@ -25,16 +25,8 @@
     	<li><a href="https://portal.hubmapconsortium.org/browse/dataset/{{ dataset.uuid }}", style="font-family:'Arial'">{{ dataset.hbmid }}</a></li><br>
     {% endfor %}</ul>
     </div>
-    {% if product.processed_cell_type_counts %}
-	<br><br><button type="button" class="collapsible">{{"Processed Cell Types"}}<span class="down-caret"></span></button>
-	      <div class="content">
-      <table>
-      {% for key, value in product.processed_cell_type_counts.items %}
-        <tr><td><a style="font-family:'Arial'">{{ key }}</a></td>
-            <td><a style="font-family:'Arial'">{{value}}</a></td></tr>
-      {% endfor %}
-      </table>
-    {% endif %}
+    {% block innercontent %}
+    {% endblock %}
     </div>
 <!--<script>
 var coll = document.getElementsByClassName("collapsible");

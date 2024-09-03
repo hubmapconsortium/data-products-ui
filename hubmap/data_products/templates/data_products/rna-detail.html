@@ -1,0 +1,13 @@
+{% extends "data_products/detail.html" %}
+{% block innercontent %}
+{% if product.processed_cell_type_counts %}
+	<br><br><button type="button" class="collapsible">{{"Processed Cell Types"}}<span class="down-caret"></span></button>
+	      <div class="content">
+      <table>
+      {% for key, value in product.processed_cell_type_counts.items %}
+        <tr><td><a style="font-family:'Arial'">{{ key }}</a></td>
+            <td><a style="font-family:'Arial'">{{value}}</a></td></tr>
+      {% endfor %}
+      </table>
+    {% endif %}
+{% endblock %}
