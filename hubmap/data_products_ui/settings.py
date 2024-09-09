@@ -10,9 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import json
 import sys
 from os import fspath
 from pathlib import Path
+from subprocess import run
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -129,6 +131,31 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+VERSION_PATHS = [
+    Path("/opt/data-products-ui/version.json"),
+    Path("/code/version.json"),
+]
+
+
+def get_app_version() -> str:
+    try:
+        p = run(["git", "describe", "--always", "--abbrev=12", "--dirty"], capture_output=True)
+        if not p.returncode:
+            return p.stdout.decode().strip()
+    except FileNotFoundError:
+        # no 'git' executable in prod image
+        pass
+
+    for version_path in VERSION_PATHS:
+        if version_path.is_file():
+            with open(version_path) as f:
+                return json.load(f)["version"]
+
+    return "unknown"
+
+
+APP_VERSION = get_app_version()
 
 # Keep this as the last section of this file!
 try:
