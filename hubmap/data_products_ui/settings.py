@@ -140,7 +140,11 @@ VERSION_PATHS = [
 
 def get_app_version() -> str:
     try:
-        p = run(["git", "describe", "--always", "--abbrev=12", "--dirty"], capture_output=True)
+        p = run(
+            ["git", "describe", "--always", "--abbrev=12", "--dirty"],
+            cwd=BASE_DIR,
+            capture_output=True,
+        )
         if not p.returncode:
             return p.stdout.decode().strip()
     except FileNotFoundError:
