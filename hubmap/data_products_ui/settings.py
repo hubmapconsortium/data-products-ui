@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
+    # "django_extensions",
     # "data_products",
 ]
 
@@ -80,7 +82,7 @@ DATABASES = {
         "NAME": "postgres",
         "USER": "postgres",
         "PASSWORD": "postgres",
-        "HOST": "db",
+        "HOST": "localhost",
         "PORT": 5432,
     },
 }
@@ -129,6 +131,14 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
 
 # Keep this as the last section of this file!
 try:
