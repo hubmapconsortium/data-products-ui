@@ -33,3 +33,6 @@ class DataProductSerializer(serializers.Serializer):
 
     def get_download_raw(self, obj):
         return obj.download+"/"+obj.tissue.tissuecode+"_raw.h5ad"
+
+    raw_file_size_bytes = serializers.IntegerField(read_only=True)
+    processed_file_sizes_bytes = serializers.IntegerField(read_only=True)
