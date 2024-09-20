@@ -20,7 +20,11 @@ class DatasetSerializer(serializers.ModelSerializer):
 class DataProductSerializer(serializers.Serializer):
     data_product_id = serializers.UUIDField(read_only=True)
     creation_time = serializers.DateTimeField(read_only=True)
-    tissue = serializers.CharField(allow_blank=True)
+    tissue = TissueSerializer(read_only=True, many=False)
     dataSets = DatasetSerializer(read_only=True, many=True)
-    assay = serializers.CharField(required=True)
+    assay = AssaySerializer(required=True)
+    download = serializers.SerializerMethodField()
+
+    def get_download(self, obj):
+        return obj.download+"/"+obj.tissue.tissuecode+"_processed.h5ad"
    
