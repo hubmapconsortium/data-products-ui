@@ -28,3 +28,8 @@ class DataProductSerializer(serializers.Serializer):
     def get_download(self, obj):
         return obj.download+"/"+obj.tissue.tissuecode+"_processed.h5ad"
    
+
+    download_raw = serializers.SerializerMethodField()
+
+    def get_download_raw(self, obj):
+        return obj.download+"/"+obj.tissue.tissuecode+"_raw.h5ad"
