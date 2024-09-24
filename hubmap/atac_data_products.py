@@ -15,6 +15,12 @@ from pathlib import Path
 #organ_types_yaml = Path("organ_types.yaml")
 
 
+def register_assay():
+    assay = Assay.objects.get_or_create(assayName="atac")
+    assay.save()
+    return assay
+
+
 def get_tissue(tissue_yaml, tissue):
     with open(tissue_yaml, 'r') as f:
         data = yaml.load(f, Loader=yaml.SafeLoader)
@@ -56,7 +62,7 @@ def register_data_product(metadata_file):
         download = directory_url,
         raw_total_cell_count = raw_cell_count,
         raw_file_size_bytes = raw_file_size,
-        assay = "atac"
+        assay = register_assay()
     )[0]
 
     for dataset in dataset_list:
