@@ -16,7 +16,7 @@ from pathlib import Path
 
 
 def register_assay():
-    assay = Assay.objects.get_or_create(assayName="atac")
+    assay = Assay.objects.get_or_create(assayName="atac")[0]
     assay.save()
     return assay
 
