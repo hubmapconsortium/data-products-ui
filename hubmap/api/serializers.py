@@ -40,3 +40,6 @@ class DataProductSerializer(serializers.Serializer):
 
     raw_file_size_bytes = serializers.IntegerField(read_only=True)
     processed_file_sizes_bytes = serializers.IntegerField(read_only=True)
+
+    raw_cell_type_counts = serializers.JSONField(read_only=True)
+    processed_cell_type_counts = serializers.JSONField(read_only=True)
