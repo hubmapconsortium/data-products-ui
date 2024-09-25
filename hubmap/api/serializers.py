@@ -12,10 +12,14 @@ class AssaySerializer(serializers.ModelSerializer):
         model = Assay
         fields = ['assayName']
 
-class DatasetSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Dataset
-        fields = ['uuid', 'hbmid', 'annotation_metadata']
+class DatasetSerializer(serializers.Serializer):
+    uuid = serializers.UUIDField(read_only=True)
+    hubmap_id = serializers.SerializerMethodField()
+    
+    def get_hubmap_id(self,obj):
+        return obj.hbmid
+        
+    annotation_metadata = serializers.JSONField(read_only=True)
 
 class DataProductSerializer(serializers.Serializer):
     data_product_id = serializers.UUIDField(read_only=True)
