@@ -22,7 +22,11 @@ def detail(request, data_product_id):
     # return HttpResponse("You're looking at dataProduct %s." % dataProductId)
 
     product = get_object_or_404(DataProduct, pk=data_product_id)
-    template = loader.get_template("data_products/detail.html")
+    assay = product.assay
+    if assay.assayName=="rna-seq":
+        template = loader.get_template("data_products/rna-detail.html")
+    else:
+        template = loader.get_template("data_products/detail.html")
     context = {"product": product,}
     return HttpResponse(template.render(context, request))
     #return render(request, "data_products/detail.html", {"product": product})

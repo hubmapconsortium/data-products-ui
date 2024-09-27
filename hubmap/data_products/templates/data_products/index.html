@@ -9,7 +9,7 @@
 	   <p>HuBMAP-wide data products contain consolidated data for all datasets of a particular assay type and tissue, across all datasets, assay variants, and data providers. RNA-seq data products are added as both raw and processed versions: 'raw' features gene expression count matrices from the HuBMAP RNA-seq pipeline, and 'processed' versions are the results of secondary analysis (normalization, filtering, dimensionality reduction, clustering) applied to the raw matrix.</p>
     {% if latest_data_product_list %}
     <table class="center">
-	    <th>Tissue Type</th><th>Creation Time</th><th>Total Raw Cells</th><th>Number Raw Cell Types</th><th>Total Processed Cells</th><th>Number Processed Cell Types</th><th>(All Versions)</th>
+    <th>Tissue Type</th><th>Creation Time</th><th>Assay Type</th><th>Number of Datasets</th><th>Total Raw Cells</th><th>Number Raw Cell Types</th><th>Total Processed Cells</th><th>Number Processed Cell Types</th><th>Raw Data Product Download</th><th>Processed Data Product Download</th><th>Shiny App</th><th>(All Versions)</th>
     {% for DataProduct in latest_data_product_list %}
     <tr>
         <td>{% if DataProduct.tissue.tissuetype == "Knee (Left)" %}
@@ -28,6 +28,8 @@
 	<img src="https://cdn.jsdelivr.net/gh/cns-iu/md-icons@main/other-icons/organs/ico-organs-{{ DataProduct.tissue|lower }}.svg" height="20"/>{% endif %}
 	<a href="/data_products/{{ DataProduct.data_product_id }}/">{{ DataProduct.tissue }}</a></td>
     <td><a href="/data_products/{{ DataProduct.data_product_id }}/">{{ DataProduct.creation_time }}</a></td>
+	<td>{{DataProduct.assay}}</td>
+	<td>{{DataProduct.dataSets.all | length}}</td>
 	<td>{{DataProduct.raw_total_cell_count}}</td>
 	<td>{% if DataProduct.raw_cell_type_counts %}
 		{{DataProduct.raw_cell_type_counts.items | length}}
@@ -38,6 +40,18 @@
 	<td>{% if DataProduct.processed_cell_type_counts %}
 	{{DataProduct.processed_cell_type_counts.items | length }}
 	{% else %} NA 
+	{% endif %}</td>
+	<td>{% if DataProduct.assay.assayName == "rna-seq" %}
+	<a href="{{ DataProduct.download }}/{{ DataProduct.tissue.tissuecode }}_raw.h5ad">Raw H5AD</a>
+	{% elif DataProduct.assay.assayName == "atac-seq" %}
+	<a href="{{ DataProduct.download }}/{{ DataProduct.uuid }}/{{ DataProduct.tissue.tissuecode}}.h5mu">Raw h5mu</a>
+	{% endif %}</td>
+	<td>{% if DataProduct.assay.assayName == "rna-seq" %}
+	<a href="{{ DataProduct.download }}/{{ DataProduct.tissue.tissuecode }}_processed.h5ad">Processed H5ADd</a> 
+	{% endif %}</td>
+	<td>{% if DataProduct.shiny_app %}
+	<a href = {{DataProduct.shiny_app}}>Shiny App</a>
+	{% else %} NA
 	{% endif %}</td>
 	<td><a href="/data_products/{{ DataProduct.tissue }}">All versions of {{DataProduct.tissue}}</a></td>
     </tr>

@@ -1,0 +1,23 @@
+{% extends "data_products/detail.html" %}
+{% block links %}
+    <h2 style="font-family:'Arial'"; font-size:25px>{{ product.processed_total_cell_count }} Cells/Nuclei in Processed Product</h2>
+    {% if product.download %}
+    <p><a style="font-family:'Arial'" href="{{product.download}}/{{product.tissue.tissuecode}}_raw.h5ad">Download Raw Data Product</a>
+    <a style="font-family:'Arial'" href="{{product.download}}/{{product.tissue.tissuecode}}_processed.h5ad">Download Processed Data Product</a></p>
+    {% endif %}
+    {% if product.shiny_app %}
+    <p><a style="font-family:'Arial'" href="{{product.shiny_app}}">Shiny App</a></p>
+    {% endif %}
+{% endblock %}
+{% block innercontent %}
+{% if product.processed_cell_type_counts %}
+	<br><br><button type="button" class="collapsible">{{"Processed Cell Types"}}<span class="down-caret"></span></button>
+	      <div class="content">
+      <table>
+      {% for key, value in product.processed_cell_type_counts.items %}
+        <tr><td><a style="font-family:'Arial'">{{ key }}</a></td>
+            <td><a style="font-family:'Arial'">{{value}}</a></td></tr>
+      {% endfor %}
+      </table>
+    {% endif %}
+{% endblock %}
