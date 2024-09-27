@@ -43,11 +43,11 @@
 	{% endif %}</td>
 	<td>{% if DataProduct.assay.assayName == "rna-seq" %}
 	<a href="{{ DataProduct.download }}/{{ DataProduct.tissue.tissuecode }}_raw.h5ad">Raw H5AD</a>
-	{% elif DataProduct.assay.assayName == "atac-seq" %}
+	{% elif DataProduct.assay.assayName == "atac" %}
 	<a href="{{ DataProduct.download }}/{{ DataProduct.uuid }}/{{ DataProduct.tissue.tissuecode}}.h5mu">Raw h5mu</a>
 	{% endif %}</td>
 	<td>{% if DataProduct.assay.assayName == "rna-seq" %}
-	<a href="{{ DataProduct.download }}/{{ DataProduct.tissue.tissuecode }}_processed.h5ad">Processed H5ADd</a> 
+	<a href="{{ DataProduct.download }}/{{ DataProduct.tissue.tissuecode }}_processed.h5ad">Processed H5AD</a> 
 	{% endif %}</td>
 	<td>{% if DataProduct.shiny_app %}
 	<a href = {{DataProduct.shiny_app}}>Shiny App</a>
