@@ -66,12 +66,10 @@ def register_data_product(metadata_file, umap_file):
         raw_cell_type_counts = raw_cell_types_counts,
         processed_cell_type_counts = processed_cell_types_counts,
         raw_file_size_bytes = raw_file_size,
-        processed_file_sizes_bytes = processed_file_size
+        processed_file_sizes_bytes = processed_file_size,
+        dataSets = dataset_list
     )[0]
 
-    for dataset in dataset_list:
-        dataset.data_product = data_product
-        dataset.save()
     
     data_product.save()
 

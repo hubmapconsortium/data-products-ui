@@ -65,15 +65,11 @@ def register_data_product(metadata_file):
         raw_cell_type_counts = {},
         processed_cell_type_counts = {},
         processed_file_sizes_bytes = 0,
-
         raw_file_size_bytes = raw_file_size,
         assay = register_assay()
     )[0]
-
-    for dataset in dataset_list:
-        dataset.data_product = data_product
-        dataset.save()
-    
+    data_product.save()
+    data_product.dataSets.add(*dataset_list)
     data_product.save()
 
 def register_data_products(metadata_list):
