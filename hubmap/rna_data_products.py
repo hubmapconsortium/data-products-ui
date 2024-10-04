@@ -40,6 +40,12 @@ def register_tissue(tissue_type):
     return tissue
 
 
+def register_assay():
+    assay = Assay.objects.get_or_create(assayName="rna-seq")[0]
+    assay.save()
+    return assay
+
+
 def register_data_product(metadata_file, umap_file):
     metadata = read_metadata(metadata_file)
     data_product_uuid = metadata["Data Product UUID"]
@@ -58,6 +64,7 @@ def register_data_product(metadata_file, umap_file):
     data_product = DataProduct.objects.get_or_create(
         data_product_id = data_product_uuid,
         tissue = register_tissue(tissue_type),
+        assay = register_assay(),
         download = directory_url,
         umap_plot = umap_file ,
         raw_total_cell_count = raw_cell_count,
@@ -66,13 +73,10 @@ def register_data_product(metadata_file, umap_file):
         raw_cell_type_counts = raw_cell_types_counts,
         processed_cell_type_counts = processed_cell_types_counts,
         raw_file_size_bytes = raw_file_size,
-        processed_file_sizes_bytes = processed_file_size
+        processed_file_sizes_bytes = processed_file_size,
     )[0]
-
-    for dataset in dataset_list:
-        dataset.data_product = data_product
-        dataset.save()
-    
+    data_product.save()
+    data_product.dataSets.add(*dataset_list)
     data_product.save()
 
 
@@ -109,7 +113,7 @@ def copy_umaps(umap_paths):
         filename = os.path.basename(umap)
         file = os.path.splitext(filename)
         png = f"{file[0]}.png"
-        shutil.copy(umap, f"/opt/media/{png}")
+        shutil.copy(umap, f"/media/{png}")
         new_umap_path = png
         new_umap_paths.append(new_umap_path)
     return new_umap_paths
@@ -124,9 +128,9 @@ def find_files(directory, pattern):
     return json_files
 
 
-def delete_json_file(directory, json_file):
+def delete_json_file(json_file):
     try: 
-        os.remove(os.path.join(directory, json_file))
+        os.remove(json_file)
         print(f"Deleted: {json_file}")
     except Exception as e:
         print(f"Error deleting file {json_file}: {e}")
@@ -138,7 +142,7 @@ def main(directory):
     updated_umap_files = copy_umaps(umap_files)
     register_data_products(metadata_files, updated_umap_files)
     for file in metadata_files:
-        delete_json_file(directory, file)
+        delete_json_file(file)
 
 
 if __name__ == "__main__":
