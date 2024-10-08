@@ -20,6 +20,7 @@ class AssaySerializer(serializers.ModelSerializer):
         model = Assay
         fields = ['assayName']
 
+
 class DatasetSerializer(serializers.Serializer):
     uuid = serializers.UUIDField(read_only=True)
     hubmap_id = serializers.SerializerMethodField()
@@ -40,7 +41,6 @@ class DataProductSerializer(serializers.Serializer):
     def get_download(self, obj):
         return obj.download+"/"+obj.tissue.tissuecode+"_processed.h5ad"
    
-
     download_raw = serializers.SerializerMethodField()
 
     def get_download_raw(self, obj):
@@ -55,3 +55,13 @@ class DataProductSerializer(serializers.Serializer):
 
     raw_cell_type_counts = serializers.JSONField(read_only=True)
     processed_cell_type_counts = serializers.JSONField(read_only=True)
+
+class DatasetMappingSerializer(serializers.Serializer):
+    uuid = serializers.UUIDField(read_only=True)
+    hubmap_id = serializers.SerializerMethodField()
+    dataproduct_set = DataProductSerializer(many=True, read_only=True)
+    
+    def get_hubmap_id(self,obj):
+        return obj.hbmid
+        
+    annotation_metadata = serializers.JSONField(read_only=True)

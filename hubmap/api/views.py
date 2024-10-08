@@ -81,5 +81,5 @@ def dataset_detail(request, uuid):
         return HttpResponse(status=404)
 
     if request.method == 'GET':
-        serializer = DatasetSerializer(dataset)
+        serializer = DatasetMappingSerializer(dataset)
         return JsonResponse(serializer.data)
