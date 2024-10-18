@@ -12,13 +12,15 @@
   {% if product.umap_plot %}
   <img style="float: left; margin-left: 60px; margin-right: 100px; display: inline-block;" src  = "{{ product.umap_plot.url }}" alt="umap plot">
   {% endif %}
+	<center>
 	  <br>
 	  <button type="button" class="collapsible">{{"Datasets in this Data Product"}}<span class="down-caret"></span></button>
-  <div class="content">
+<div class="content">
    <ul>{% for dataset in product.dataSets.all %}
     	<li><a href="https://portal.hubmapconsortium.org/browse/dataset/{{ dataset.uuid }}", style="font-family:'Arial'">{{ dataset.hbmid }}</a></li><br>
     {% endfor %}</ul>
     </div>
+	</center>
     {% block innercontent %}
     {% endblock %}
     </div>
