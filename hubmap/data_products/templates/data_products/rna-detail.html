@@ -10,6 +10,7 @@
     {% endif %}
 {% endblock %}
 {% block innercontent %}
+<center>
 {% if product.processed_cell_type_counts %}
 	<br><br><button type="button" class="collapsible">{{"Processed Cell Types"}}<span class="down-caret"></span></button>
 	      <div class="content">
@@ -20,4 +21,5 @@
       {% endfor %}
       </table>
     {% endif %}
+</center>
 {% endblock %}

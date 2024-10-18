@@ -2,9 +2,8 @@
 {% block links %}
     <h2 style="font-family:'Arial'"; font-size:25px>{{ product.raw_total_cell_count }} Cells/Nuclei in Raw Product</h2>
     {% if product.download %}
-    <p><a style="font-family:'Arial'" href="{{product.download}}/{{product.tissue.tissuecode}}.h5mu">Download Raw Data Product</a>
+    <p><a style="font-family:'Arial'" href="{{product.download}}/{{product.tissue.tissuecode}}.h5mu">Download Raw Data Product</a></p>
     {% endif %}
 {% endblock %}
 {% block innercontent %}
-Test
 {% endblock %}
