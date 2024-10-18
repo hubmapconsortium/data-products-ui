@@ -1,16 +1,25 @@
 from django.contrib.auth.models import Group, User
 from rest_framework import serializers
 from data_products.models import *
+import urllib.request, json 
 
-class TissueSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Tissue
-        fields = ['tissuetype', 'tissuecode']
+class TissueSerializer(serializers.Serializer):
+    tissuetype = serializers.CharField(read_only=True)
+    tissuecode = serializers.CharField(read_only=True)
+    uberoncode= serializers.SerializerMethodField()
+
+    def get_uberoncode(self, obj):
+        tcode = obj.tissuecode
+        with urllib.request.urlopen("https://ontology.api.hubmapconsortium.org/organs?application_context=HUBMAP") as url:
+            data = json.load(url)
+            result = [x["organ_uberon"] for x in data if x["rui_code"]==tcode]
+            return result[0]
     
 class AssaySerializer(serializers.ModelSerializer):
     class Meta:
         model = Assay
         fields = ['assayName']
+
 
 class DatasetSerializer(serializers.Serializer):
     uuid = serializers.UUIDField(read_only=True)
@@ -32,14 +41,27 @@ class DataProductSerializer(serializers.Serializer):
     def get_download(self, obj):
         return obj.download+"/"+obj.tissue.tissuecode+"_processed.h5ad"
    
-
     download_raw = serializers.SerializerMethodField()
 
     def get_download_raw(self, obj):
-        return obj.download+"/"+obj.tissue.tissuecode+"_raw.h5ad"
+        if obj.download is not None:
+            print(obj.download)
+            return obj.download+"/"+obj.tissue.tissuecode+"_raw.h5ad"
+        else:
+            return "None"
 
     raw_file_size_bytes = serializers.IntegerField(read_only=True)
     processed_file_sizes_bytes = serializers.IntegerField(read_only=True)
 
     raw_cell_type_counts = serializers.JSONField(read_only=True)
     processed_cell_type_counts = serializers.JSONField(read_only=True)
+
+class DatasetMappingSerializer(serializers.Serializer):
+    uuid = serializers.UUIDField(read_only=True)
+    hubmap_id = serializers.SerializerMethodField()
+    dataproduct_set = DataProductSerializer(many=True, read_only=True)
+    
+    def get_hubmap_id(self,obj):
+        return obj.hbmid
+        
+    annotation_metadata = serializers.JSONField(read_only=True)
