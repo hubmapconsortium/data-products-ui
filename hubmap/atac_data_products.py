@@ -65,16 +65,13 @@ def register_data_product(metadata_file):
         raw_cell_type_counts = {},
         processed_cell_type_counts = {},
         processed_file_sizes_bytes = 0,
-
         raw_file_size_bytes = raw_file_size,
         assay = register_assay()
     )[0]
-
-    for dataset in dataset_list:
-        dataset.data_product = data_product
-        dataset.save()
-    
     data_product.save()
+    data_product.dataSets.add(*dataset_list)
+    data_product.save()
+
 
 def register_data_products(metadata_list):
     for metadata in metadata_list:
@@ -124,9 +121,9 @@ def find_files(directory, pattern):
     return json_files
 
 
-def delete_json_file(directory, json_file):
+def delete_json_file(json_file):
     try: 
-        os.remove(os.path.join(directory, json_file))
+        os.remove(json_file)
         print(f"Deleted: {json_file}")
     except Exception as e:
         print(f"Error deleting file {json_file}: {e}")
@@ -135,8 +132,8 @@ def delete_json_file(directory, json_file):
 def main(directory):
     metadata_files = find_metadatas(directory)
     register_data_products(metadata_files)
-    # for file in metadata_files:
-    #     delete_json_file(directory, file)
+    for file in metadata_files:
+        delete_json_file(directory, file)
 
 
 if __name__ == "__main__":
