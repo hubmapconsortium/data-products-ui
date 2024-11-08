@@ -39,14 +39,19 @@ class DataProductSerializer(serializers.Serializer):
     download = serializers.SerializerMethodField()
 
     def get_download(self, obj):
-        return obj.download+"/"+obj.tissue.tissuecode+"_processed.h5ad"
+        if obj.download is not None and obj.assay.assayName == "rna-seq":
+            return obj.download+"/"+obj.tissue.tissuecode+"_processed.h5ad"
+        else:
+            return "None"
    
     download_raw = serializers.SerializerMethodField()
 
     def get_download_raw(self, obj):
         if obj.download is not None:
-            print(obj.download)
-            return obj.download+"/"+obj.tissue.tissuecode+"_raw.h5ad"
+            if obj.assay.assayName == "rna-seq":
+                return obj.download+"/"+obj.tissue.tissuecode+"_raw.h5ad"
+            elif obj.assay.assayName == "atac":
+                return obj.download+"/"+obj.tissue.tissuecode+".h5mu"
         else:
             return "None"
 
