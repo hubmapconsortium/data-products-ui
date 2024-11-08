@@ -48,10 +48,10 @@ class DataProductSerializer(serializers.Serializer):
 
     def get_download_raw(self, obj):
         if obj.download is not None:
-            if obj.assay.assayName == "rna-seq":
-                return obj.download+"/"+obj.tissue.tissuecode+"_raw.h5ad"
-            elif obj.assay.assayName == "atac":
+            if obj.assay.assayName == "atac":
                 return obj.download+"/"+obj.tissue.tissuecode+".h5mu"
+            else:
+                return obj.download+"/"+obj.tissue.tissuecode+"_raw.h5ad"
         else:
             return "None"
 

@@ -30,6 +30,8 @@ def detail(request, data_product_id):
         template = loader.get_template("data_products/rna-detail.html")
     elif assay.assayName=="atac":
         template = loader.get_template("data_products/atac-detail.html")
+    elif assay.assayName=="CODEX":
+        template = loader.get_template("data_products/codex-detail.html")
     else:
         template = loader.get_template("data_products/detail.html")
     context = {"product": product,}
