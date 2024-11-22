@@ -26,11 +26,11 @@ def detail(request, data_product_id):
 
     product = get_object_or_404(DataProduct, pk=data_product_id)
     assay = product.assay
-    if assay.assayName=="rna-seq" or assay.assayName=="multiome":
+    if assay.assayName=="rna-seq" or assay.assayName=="multiome-rna-atac":
         template = loader.get_template("data_products/rna-detail.html")
     elif assay.assayName=="atac":
         template = loader.get_template("data_products/atac-detail.html")
-    elif assay.assayName=="CODEX":
+    elif assay.assayName=="codex":
         template = loader.get_template("data_products/codex-detail.html")
     else:
         template = loader.get_template("data_products/detail.html")

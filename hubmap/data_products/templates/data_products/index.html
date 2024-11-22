@@ -54,7 +54,7 @@
 	{% else %}
 	<a href="{{ DataProduct.download }}/{{ DataProduct.tissue.tissuecode }}_raw.h5ad">Raw H5AD</a>
 	{% endif %}</td>
-	<td>{% if DataProduct.assay.assayName == "rna-seq" or DataProduct.assay.assayName == "multiome" %}
+	<td>{% if DataProduct.assay.assayName == "rna-seq" or DataProduct.assay.assayName == "multiome-rna-atac" %}
 	<a href="{{ DataProduct.download }}/{{ DataProduct.tissue.tissuecode }}_processed.h5ad">Processed H5AD</a> 
 	{% endif %}</td>
 	<td>{% if DataProduct.shiny_app %}
