@@ -13,7 +13,9 @@ class TissueSerializer(serializers.Serializer):
         with urllib.request.urlopen("https://ontology.api.hubmapconsortium.org/organs?application_context=HUBMAP") as url:
             data = json.load(url)
             result = [x["organ_uberon"] for x in data if x["rui_code"]==tcode]
-            return result[0]
+            if result:
+                return result[0]
+            return None
     
 class AssaySerializer(serializers.ModelSerializer):
     class Meta:
