@@ -49,8 +49,10 @@
 	{{DataProduct.processed_cell_type_counts.items | length }}
 	{% else %} NA 
 	{% endif %}</td>
-	<td>{% if DataProduct.assay.assayName == "atac" or DataProduct.assay.assayName == "multiome-rna-atac" %}
+	<td>{% if DataProduct.assay.assayName == "atac" %}
 	<a href="{{ DataProduct.download }}/{{ DataProduct.tissue.tissuecode}}.h5mu">Raw h5mu</a>
+	{% elif DataProduct.assay.assayName == "multiome-rna-atac" %}
+	<a href="{{ DataProduct.download }}/{{ DataProduct.tissue.tissuecode}}_raw.h5mu">Raw h5mu</a>
 	{% else %}
 	<a href="{{ DataProduct.download }}/{{ DataProduct.tissue.tissuecode }}_raw.h5ad">Raw H5AD</a>
 	{% endif %}</td>
