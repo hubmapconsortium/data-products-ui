@@ -38,6 +38,21 @@ def detail(request, data_product_id):
     return HttpResponse(template.render(context, request))
     #return render(request, "data_products/detail.html", {"product": product})
 
+def detail_latest(request, tissuecode, assayName):
+    tissue = Tissue.objects.filter(tissuecode=tissuecode)
+    assay = Assay.objects.filter(assayName = assayName)
+    latest_data_product=DataProduct.objects.filter(tissue__in=tissue.all(), assay__in=assay.all()).order_by("-creation_time")[0]
+    context = {"product": latest_data_product,}
+    if assayName=="rna-seq" or assayName=="multiome-rna-atac":
+        template = loader.get_template("data_products/rna-detail.html")
+    elif assayName=="atac":
+        template = loader.get_template("data_products/atac-detail.html")
+    elif assayName=="codex":
+        template = loader.get_template("data_products/codex-detail.html")
+    else:
+        template = loader.get_template("data_products/detail.html")
+    return HttpResponse(template.render(context, request))
+
 def tissue(request, tissuetype):
 
     tissue = Tissue.objects.filter(tissuetype=tissuetype)
