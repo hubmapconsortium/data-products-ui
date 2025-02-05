@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404, render
 from django.template import loader
 
@@ -40,17 +40,24 @@ def detail(request, data_product_id):
 
 def detail_latest(request, tissuecode, assayName):
     tissue = Tissue.objects.filter(tissuecode=tissuecode)
-    assay = Assay.objects.filter(assayName = assayName)
-    latest_data_product=DataProduct.objects.filter(tissue__in=tissue.all(), assay__in=assay.all()).order_by("-creation_time")[0]
-    context = {"product": latest_data_product,}
-    if assayName=="rna-seq" or assayName=="multiome-rna-atac":
+    assay = Assay.objects.filter(assayName=assayName)
+    try:
+        latest_data_product = DataProduct.objects.filter(
+            tissue__in=tissue, 
+            assay__in=assay
+        ).order_by("-creation_time")[0]
+    except IndexError:
+        raise Http404("Data product not found for the specified tissue and assay.")
+    context = {"product": latest_data_product}
+    if assayName in ["rna-seq", "multiome-rna-atac"]:
         template = loader.get_template("data_products/rna-detail.html")
-    elif assayName=="atac":
+    elif assayName == "atac":
         template = loader.get_template("data_products/atac-detail.html")
-    elif assayName=="codex":
+    elif assayName == "codex":
         template = loader.get_template("data_products/codex-detail.html")
     else:
         template = loader.get_template("data_products/detail.html")
+
     return HttpResponse(template.render(context, request))
 
 def tissue(request, tissuetype):
