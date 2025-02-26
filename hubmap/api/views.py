@@ -83,3 +83,13 @@ def dataset_detail(request, uuid):
     if request.method == 'GET':
         serializer = DatasetMappingSerializer(dataset)
         return JsonResponse(serializer.data)
+
+def data_products_by_tissue(request, tissuetype):
+    try:
+        tissue = Tissue.objects.get(tissuetype=tissuetype)
+        data_products = DataProduct.objects.filter(tissue=tissue)
+    except Tissue.DoesNotExist:
+        return HttpResponse(status=404)
+    if request.method =='GET':
+        serializer = DataProductSerializer(data_products, many=True)
+        return JsonResponse(serializer.data)
