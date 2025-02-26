@@ -92,4 +92,4 @@ def data_products_by_tissue(request, tissuetype):
         return HttpResponse(status=404)
     if request.method =='GET':
         serializer = DataProductSerializer(data_products, many=True)
-        return JsonResponse(serializer.data)
+        return JsonResponse(serializer.data, safe=False)
