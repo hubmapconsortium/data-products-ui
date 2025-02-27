@@ -40,11 +40,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    # "django_extensions",
-    # "data_products",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -53,6 +53,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
 
 ROOT_URLCONF = "data_products_ui.urls"
 
@@ -170,6 +171,8 @@ def get_app_version() -> str:
 
 
 APP_VERSION = get_app_version()
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Keep this as the last section of this file!
 try:
