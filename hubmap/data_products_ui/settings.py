@@ -174,25 +174,6 @@ APP_VERSION = get_app_version()
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-CORS_ALLOW_METHODS = [
-    "GET",
-    "POST",
-    "PUT",
-    "PATCH",
-    "DELETE",
-    "OPTIONS",
-]
-
-# Allow specific headers
-CORS_ALLOW_HEADERS = [
-    "authorization",
-    "content-type",
-    "accept",
-    "origin",
-    "user-agent",
-    "x-csrftoken",
-    "x-requested-with",
-]
 # Keep this as the last section of this file!
 try:
     from .local_settings import *
