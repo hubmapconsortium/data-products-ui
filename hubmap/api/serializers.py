@@ -38,8 +38,9 @@ class DataProductSerializer(serializers.Serializer):
     tissue = TissueSerializer(read_only=True, many=False)
     dataSets = DatasetSerializer(read_only=True, many=True)
     assay = AssaySerializer(required=True)
+    shiny_app = serializers.URLField(read_only=True)  # Add this line
     download = serializers.SerializerMethodField()
-
+    
     def get_download(self, obj):
         if obj.download is not None:
             if obj.assay.assayName == "rna-seq":
@@ -52,7 +53,6 @@ class DataProductSerializer(serializers.Serializer):
             return "None"
    
     download_raw = serializers.SerializerMethodField()
-
     def get_download_raw(self, obj):
         if obj.download is not None:
             if (obj.assay.assayName == "atac" or obj.assay.assayName == "multiome-rna-atac"):
@@ -64,7 +64,6 @@ class DataProductSerializer(serializers.Serializer):
 
     raw_file_size_bytes = serializers.IntegerField(read_only=True)
     processed_file_sizes_bytes = serializers.IntegerField(read_only=True)
-
     raw_cell_type_counts = serializers.JSONField(read_only=True)
     processed_cell_type_counts = serializers.JSONField(read_only=True)
 
