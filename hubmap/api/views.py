@@ -1,9 +1,14 @@
+import os
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.contrib.auth.models import Group, User
+from django.db import connections
+from django.db.utils import OperationalError
 from rest_framework import permissions, viewsets
 from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 from .serializers import *
 from data_products.models import *
@@ -93,3 +98,18 @@ def data_products_by_tissue(request, tissuetype):
     if request.method =='GET':
         serializer = DataProductSerializer(data_products, many=True)
         return JsonResponse(serializer.data, safe=False)
+    
+
+def status_view(request):
+    try:
+        connections['default'].cursor()
+        mysql_connection = True
+    except OperationalError:
+        mysql_connection = False
+
+    status_data = {
+        "build": "main:prod",  
+        "mysql_connection": mysql_connection,
+        "version": "prod"
+    }
+    return JsonResponse(status_data)
