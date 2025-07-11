@@ -17,5 +17,6 @@ urlpatterns = [
     path("assays/<str:assayName>/", views.assay_detail),
     path("tissues/<str:tissuetype>/", views.tissue_detail),
     path("datasets/<str:uuid>/", views.dataset_detail),
-    path("data_products/<str:tissuetype>/", views.data_products_by_tissue),
+    path("data_products/tissue/<str:tissuetype>/", views.data_products_by_tissue),
+    path("data_products/assay/<str:assayName>/", views.data_products_by_assay),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
