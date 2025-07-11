@@ -89,16 +89,6 @@ def dataset_detail(request, uuid):
         serializer = DatasetMappingSerializer(dataset)
         return JsonResponse(serializer.data)
 
-def data_products_by_tissue(request, tissuetype):
-    try:
-        tissue = Tissue.objects.get(tissuetype=tissuetype)
-        data_products = DataProduct.objects.filter(tissue=tissue)
-    except Tissue.DoesNotExist:
-        return HttpResponse(status=404)
-    if request.method =='GET':
-        serializer = DataProductSerializer(data_products, many=True)
-        return JsonResponse(serializer.data, safe=False)
-    
 
 def status_view(request):
     try:
@@ -113,3 +103,31 @@ def status_view(request):
         "version": "prod"
     }
     return JsonResponse(status_data)
+
+
+def data_products_by_tissue(request, tissuetype):
+    if request.method != 'GET':
+        return HttpResponse(status=405)
+
+    try:
+        tissue = Tissue.objects.get(tissuetype__iexact=tissuetype)
+        data_products = DataProduct.objects.filter(tissue=tissue)
+    except Tissue.DoesNotExist:
+        return HttpResponse(status=404)
+
+    serializer = DataProductSerializer(data_products, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+
+def data_products_by_assay(request, assayName):
+    if request.method != 'GET':
+        return HttpResponse(status=405)
+
+    try:
+        assay = Assay.objects.get(assayName__iexact=assayName)
+        data_products = DataProduct.objects.filter(assay=assay)
+    except Assay.DoesNotExist:
+        return HttpResponse(status=404)
+
+    serializer = DataProductSerializer(data_products, many=True)
+    return JsonResponse(serializer.data, safe=False)
