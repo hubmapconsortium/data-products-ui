@@ -55,8 +55,10 @@ class DataProductSerializer(serializers.Serializer):
     download_raw = serializers.SerializerMethodField()
     def get_download_raw(self, obj):
         if obj.download is not None:
-            if (obj.assay.assayName == "atac" or obj.assay.assayName == "multiome-rna-atac"):
+            if obj.assay.assayName == "multiome-rna-atac":
                 return obj.download+"/"+obj.tissue.tissuecode+"_raw.h5mu"
+            elif obj.assay.assayName == "atac":
+                return obj.download+"/"+obj.tissue.tissuecode+".h5mu"
             else:
                 return obj.download+"/"+obj.tissue.tissuecode+"_raw.h5ad"
         else:
