@@ -7,7 +7,7 @@ from rest_framework import routers
 from . import views
 
 urlpatterns = [
-    path("status/", views.status_view),
+    path("status", views.status_view),
     path("", views.data_product_list),
     path("data_products/", views.data_product_list),
     path("tissues", views.tissue_list),
