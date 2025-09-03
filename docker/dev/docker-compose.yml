@@ -10,13 +10,38 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ../../data/postgres:/var/lib/postgresql/data
-  web:
-    image: "hubmap/data-products-ui-dev:latest"
-    command: /code/wait-for-it.sh --timeout=0 db:5432 -- /opt/venv/bin/python /code/hubmap/manage.py runserver 0.0.0.0:8000
-    volumes:
-      - ../..:/code
+      -  /opt/repositories/vm024-dev/data-products-ui/data/postgres:/var/lib/postgresql/data
+  uwsgi:
+    image: "hubmap/data-products-ui-prod:latest"
     ports:
-      - "8000:8000"
+      - "5000:5000"
+    expose:
+      - 5000
+    volumes:
+      - /opt/repositories/vm024-dev/data-products-ui/secret:/opt/secret/
+      - /opt/repositories/vm024-dev/data-products-ui/data:/opt/data/
+      - /opt/repositories/vm024-dev/data-products-ui/pipeline_outputs:/opt/pipeline_outputs/
+      - /opt/repositories/vm024-dev/data-products-ui/media:/opt/media/
+  nginx:
+    image: "nginx:alpine"
+    volumes:
+      - /opt/repositories/vm024-dev/data-products-ui/secret/nginx.conf:/etc/nginx/nginx.conf
+      - /opt/repositories/vm024-dev/data-products-ui/secret/data-products-ui.conf:/etc/nginx/conf.d/data-products-ui.conf
+      - /etc/pki/nginx:/etc/pki/nginx/
+      - /etc/pki/tls:/etc/pki/tls/
+      - /opt/repositories/vm024-dev/data-products-ui/media:/opt/media/
+      - /opt/repositories/vm024-dev/data-products-ui/hubmap/static/:/opt/data-products-ui/hubmap/static/
+    ports:
+      - "80:80"
+      - "443:4430"
     depends_on:
-      - db
+      - uwsgi
+      - shinycell2
+  shinycell2:
+    image: "shinycell2:latest"
+    ports:
+      - "4838:3838"
+    volumes:
+      - /hive/hubmap/data/public/hubmap-data-products/shiny-server:/data
+      - /opt/repositories/vm024-dev/data-products-ui/shiny-server:/srv/shiny-server
+    restart: unless-stopped 
