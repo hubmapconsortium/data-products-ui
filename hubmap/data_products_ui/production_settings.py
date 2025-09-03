@@ -10,5 +10,5 @@ with open(SECRET_PATH / "django_secret_key.txt") as f:
     SECRET_KEY = f.read().strip()
 
 ALLOWED_HOSTS = [
-    "data-products.cmu.hubmapconsortium.org",
+    "data-products.hubmapconsortium.org",
 ]
