@@ -53,6 +53,8 @@
 	<a href="{{ DataProduct.download }}/{{ DataProduct.tissue.tissuecode}}.h5mu">Raw h5mu</a>
 	{% elif DataProduct.assay.assayName == "multiome-rna-atac" %}
 	<a href="{{ DataProduct.download }}/{{ DataProduct.tissue.tissuecode}}_raw.h5mu">Raw h5mu</a>
+	{% elif DataProduct.assay.assayName == "codex" %}
+	<a href="{{ DataProduct.download }}/{{ DataProduct.tissue.tissuecode}}_raw.h5mu">Raw h5mu</a>
 	{% else %}
 	<a href="{{ DataProduct.download }}/{{ DataProduct.tissue.tissuecode }}_raw.h5ad">Raw H5AD</a>
 	{% endif %}</td>
