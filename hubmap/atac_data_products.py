@@ -48,7 +48,6 @@ def register_tissue(tissue_type):
 
 def register_data_product(metadata_file):
     metadata = read_metadata(metadata_file)
-    print(metadata)
     data_product_uuid = metadata["Data Product UUID"]
     tissue_type = metadata["Tissue"]
     dataset_uuids = metadata["Dataset UUIDs"]
