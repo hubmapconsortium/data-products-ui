@@ -54,7 +54,7 @@ def register_data_product(metadata_file):
     dataset_hbmids = metadata["Dataset HBMIDs"]
     dataset_list = register_datasets(dataset_uuids, dataset_hbmids)
     raw_cell_count = metadata["Total Cell Count"]
-    directory_url = f"https://g-24f5cc.09193a.5898.dn.glob.us/public/hubmap-data-products/{data_product_uuid}"
+    directory_url = f"https://assets.hubmapconsortium.org/hubmap-data-products/{data_product_uuid}/"
     raw_file_size = metadata["Raw File Size"]
     data_product = DataProduct.objects.get_or_create(
         data_product_id = data_product_uuid,
@@ -133,7 +133,7 @@ def main(directory):
     metadata_files = find_metadatas(directory)
     register_data_products(metadata_files)
     for file in metadata_files:
-        delete_json_file(directory, file)
+        delete_json_file(file)
 
 
 if __name__ == "__main__":

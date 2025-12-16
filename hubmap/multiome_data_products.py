@@ -55,7 +55,7 @@ def register_data_product(metadata_file, umap_file):
     dataset_list = register_datasets(dataset_uuids, dataset_hbmids)
     raw_cell_count = metadata["Raw Total Cell Count"]
     processed_cell_count = metadata["Processed Total Cell Count"]
-    directory_url = f"https://g-24f5cc.09193a.5898.dn.glob.us/public/hubmap-data-products/{data_product_uuid}"
+    directory_url = f"https://assets.hubmapconsortium.org/hubmap-data-products/{data_product_uuid}/"
     raw_file_size = metadata["Raw File Size"]
     processed_file_size = metadata["Processed File Size"]
     data_product = DataProduct.objects.get_or_create(
