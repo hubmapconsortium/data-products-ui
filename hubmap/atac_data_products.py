@@ -134,7 +134,7 @@ def main(directory):
     metadata_files = find_metadatas(directory)
     register_data_products(metadata_files)
     for file in metadata_files:
-        delete_json_file(directory, file)
+        delete_json_file(file)
 
 
 if __name__ == "__main__":
