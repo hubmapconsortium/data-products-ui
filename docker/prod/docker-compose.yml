@@ -38,9 +38,9 @@ services:
       - uwsgi
       - shinycell2
   shinycell2:
-    image: "shinycell2:latest"
+    image: "shinycell2_track"
     ports:
-      - "3838:3838"
+      - "4838:3838"
     volumes:
       - /hive/hubmap/data/public/hubmap-data-products/shiny-server:/data
       - /opt/repositories/vm024-dev/data-products-ui/shiny-server:/srv/shiny-server
