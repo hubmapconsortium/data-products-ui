@@ -2,6 +2,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
+
+import data_products_ui
 #from rest_framework import routers
 
 from . import views
@@ -13,6 +15,7 @@ from . import views
 urlpatterns = [
     path("", views.index, name="index"),
     path("admin/", admin.site.urls),
+    path("sennet/", include("data_products.urls")),
     path("data_products/", include("data_products.urls")),
     path("api/", include("api.urls")),
 

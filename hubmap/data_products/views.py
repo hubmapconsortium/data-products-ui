@@ -69,3 +69,19 @@ def tissue(request, tissuetype):
         "latest_data_product_list": tissue_data_product_list,
     }
     return HttpResponse(template.render(context, request))
+
+
+def sennet_test(request):
+    tissue_list = Tissue.objects.order_by("tissuetype")
+    assay_list = Assay.objects.order_by("assayName")
+    latest_data_product_list=[]
+    for t in tissue_list:
+        for a in assay_list:
+            latest_data_product_t=DataProduct.objects.filter(tissue=t, assay=a).order_by("-creation_time")
+            if(len(latest_data_product_t)>0):
+                latest_data_product_list.append(latest_data_product_t[0])
+    template = loader.get_template("data_products/sennet_test.html")
+    context = {
+        "latest_data_product_list": latest_data_product_list,
+    }
+    return HttpResponse(template.render(context, request))
