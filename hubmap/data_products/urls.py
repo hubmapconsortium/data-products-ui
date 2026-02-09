@@ -10,5 +10,5 @@ urlpatterns = [
     path("<uuid:data_product_id>/", views.detail, name="detail"),
     path("<str:tissuetype>/", views.tissue, name="tissue"),
     path("latest/<str:tissuecode>/<str:assayName>", views.detail_latest),
-    path("sennet/", views.sennet_test, name="sennet"),
+    # path("sennet/", views.sennet_test, name="sennet"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

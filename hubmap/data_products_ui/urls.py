@@ -15,7 +15,7 @@ from . import views
 urlpatterns = [
     path("", views.index, name="index"),
     path("admin/", admin.site.urls),
-    path("sennet/", include("data_products.urls")),
+    # path("sennet/", include("data_products.urls")),
     path("data_products/", include("data_products.urls")),
     path("api/", include("api.urls")),
 
