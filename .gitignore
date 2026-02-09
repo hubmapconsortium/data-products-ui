@@ -11,4 +11,3 @@ sqlite.db*
 shiny-server/*
 pipeline_outputs/*
 secret/django_secret_key.txt
-secret/*
