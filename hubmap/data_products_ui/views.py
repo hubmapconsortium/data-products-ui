@@ -4,4 +4,4 @@ from django.template import loader
 
 def index(request):
 
-    return redirect("/data_products")
+    return redirect("https://portal.hubmapconsortium.org/integrated-maps")
