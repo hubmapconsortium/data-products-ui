@@ -99,7 +99,7 @@ def find_umaps(metadatas, directory):
     for file_path in metadatas:
         filename = os.path.basename(file_path)
         file = os.path.splitext(filename)
-        png = f"{file[0]}_leiden_cluster_combined.png"
+        png = f"{file[0]}.png"
         umap_pngs.append(os.path.join(directory, png))
     return umap_pngs   
 

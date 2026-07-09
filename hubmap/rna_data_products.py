@@ -48,7 +48,7 @@ def register_assay():
 
 def register_data_product(metadata_file, umap_file):
     metadata = read_metadata(metadata_file)
-    data_product_uuid = metadata["Data Product UUID"]
+    data_product_uuid = metadata["Integrated Map UUID"]
     tissue_type = metadata["Tissue"]
     dataset_uuids = metadata["Dataset UUIDs"]
     dataset_hbmids = metadata["Dataset HBMIDs"]
