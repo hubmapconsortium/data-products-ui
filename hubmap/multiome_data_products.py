@@ -48,7 +48,7 @@ def register_assay():
 
 def register_data_product(metadata_file, umap_file):
     metadata = read_metadata(metadata_file)
-    data_product_uuid = metadata["Data Product UUID"]
+    data_product_uuid = metadata["Integrated Map UUID"]
     tissue_type = metadata["Tissue"]
     dataset_uuids = metadata["Dataset UUIDs"]
     dataset_hbmids = metadata["Dataset HBMIDs"]
@@ -58,6 +58,7 @@ def register_data_product(metadata_file, umap_file):
     directory_url = f"https://assets.hubmapconsortium.org/hubmap-data-products/{data_product_uuid}/"
     raw_file_size = metadata["Raw File Size"]
     processed_file_size = metadata["Processed File Size"]
+    processed_cell_types_counts = metadata["Processed Cell Type Counts"]
     data_product = DataProduct.objects.get_or_create(
         data_product_id = data_product_uuid,
         tissue = register_tissue(tissue_type),
@@ -65,7 +66,7 @@ def register_data_product(metadata_file, umap_file):
         download = directory_url,
         umap_plot = umap_file ,
         raw_cell_type_counts = {},
-        processed_cell_type_counts = {},
+        processed_cell_type_counts = processed_cell_types_counts,
         raw_total_cell_count = raw_cell_count,
         processed_total_cell_count = processed_cell_count,
         raw_file_size_bytes = raw_file_size,
