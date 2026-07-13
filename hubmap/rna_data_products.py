@@ -57,7 +57,6 @@ def register_data_product(metadata_file, umap_file):
     processed_cell_count = metadata["Processed Total Cell Count"]
     directory_url = f"https://assets.hubmapconsortium.org/hubmap-data-products/{data_product_uuid}/"
     shiny_url = f"https://data-products.hubmapconsortium.org/shiny/{data_product_uuid}/"
-    raw_cell_types_counts = metadata["Raw Cell Type Counts"]
     processed_cell_types_counts = metadata["Processed Cell Type Counts"]
     raw_file_size = metadata["Raw File Size"]
     processed_file_size = metadata["Processed File Size"]
@@ -70,7 +69,7 @@ def register_data_product(metadata_file, umap_file):
         raw_total_cell_count = raw_cell_count,
         processed_total_cell_count = processed_cell_count,
         shiny_app = shiny_url,
-        raw_cell_type_counts = raw_cell_types_counts,
+        raw_cell_type_counts ={},
         processed_cell_type_counts = processed_cell_types_counts,
         raw_file_size_bytes = raw_file_size,
         processed_file_sizes_bytes = processed_file_size,
